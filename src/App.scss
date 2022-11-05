@@ -1,0 +1,53 @@
+
+.box {
+    width: 30%;
+    min-height: 10%;
+    margin: 15% auto;
+    border: 1px solid rgb(18, 133, 228);
+    background-color: rgb(152, 210, 248);
+    border-radius: 4px;
+    display: grid;
+    grid-auto-flow: row;
+}
+.controllers {
+    margin: 10px;
+    .controllersInput {
+        display: flex;
+    }
+    textarea {
+        height: 34px;
+        width: 259px;
+    }
+    button {
+        border-radius: 5px;
+        border: 2px solid #fff;
+        background: rgb(37, 145, 233);
+        color: #fff;
+        margin: 0 0 0 10px;
+        height: 40px;
+        width: 112px;
+        &:hover {
+            color:rgb(2, 37, 66);
+            border: 3px solid rgb(4, 55, 97);
+            background-color: #98d2f8;
+        }
+    }
+    .textAlert {
+        color: rgb(4, 28, 78);
+        font-weight: 700;
+    }
+}
+
+.messages {
+    grid-row: 1 span;
+    display:grid;
+    grid-template-columns: auto;
+}
+
+.user {
+    justify-self: end;    
+}
+
+.bot {
+    justify-self: start;
+}
