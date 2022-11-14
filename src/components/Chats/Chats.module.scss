@@ -2,11 +2,12 @@
     display: grid;
     grid-template-columns: 1fr 4fr;
     box-sizing: border-box;
-    height: 95%;
+    height: 93%;
     .messages {
         background-color: #99dfff;
         max-height: 100%;
         border-radius: 6px;
+        border-top-right-radius: 0;
         box-sizing: border-box;
     }
 }
