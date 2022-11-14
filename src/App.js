@@ -1,14 +1,16 @@
 import './App.scss';
-import Dialogs from './components/Dialogs/Dialogs';
-import Messages from './components/Messages/Messages';
+import Chats from './components/Chats/Chats';
+import Menu from './components/Menu/Menu';
 
 
 function App() {
 
 
-  return ( <div className='box'>
-    <div className={'dialogs'}><Dialogs /></div>
-    <div className={'messages'}><Messages /></div>
+  return ( <div>
+    <div className='box'>
+      <Menu />
+      <Chats />
+    </div>
   </div>
   )
 }

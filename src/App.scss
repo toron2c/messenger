@@ -4,15 +4,15 @@
     height: 100vh;
     border: 10px solid #1565c0;
     border-radius: '5px';
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: 5fr;
+    //display: grid;
+    //grid-template-columns: 1fr 4fr;
+    //grid-template-rows: 5fr;
     box-sizing: border-box;
-    .messages {
-        background-color: #99dfff;
-        max-height: 100%;
-        box-sizing: border-box;
-    }
+    // .messages {
+    //     background-color: #99dfff;
+    //     max-height: 100%;
+    //     box-sizing: border-box;
+    // }
 }
 
 // .box {
