@@ -16,6 +16,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path={'profile'} element={<Profile />} />
           <Route path={'chats'} element={<Chats />} />
+          <Route path={'chats/:id'} element={<Chats />} />
         </Route>
       </Routes>
     </div>
