@@ -8,10 +8,6 @@ export default function Menu() {
             <nav>
                 <ul className={style.list}>
                     <li><NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/">
-                        {/* {( { isActive } ) => (
-                            isActive ? <Button variant="contained" style={{ padding: '7px 35px' }}>Home</Button> :
-                                <Button style={{ padding: '7px 35px' }} variant="outlined">Home</Button>
-                        )} */}
                         Home
                     </NavLink></li>
                     <li><NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/profile">

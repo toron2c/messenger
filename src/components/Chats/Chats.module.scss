@@ -3,6 +3,7 @@
     grid-template-columns: 1fr 4fr;
     box-sizing: border-box;
     height: 93%;
+    max-height: 93%;
     .messages {
         background-color: #99dfff;
         max-height: 100%;
@@ -10,6 +11,25 @@
         border-top-right-radius: 0;
         box-sizing: border-box;
     }
+    .containerDialog {
+        max-height: 90%;
+        display: grid;
+        grid-template-rows: 8fr 1fr;
+        box-sizing: border-box;
+        .dialogs {
+            min-height: 95%;
+            max-height: 540px;
+            overflow-x: auto;
+        }
+        .containerNewDialog {
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+    }
+}
+
+.newChatButton {
+    padding: 5px 0 0 0;
 }
 
 .warning {

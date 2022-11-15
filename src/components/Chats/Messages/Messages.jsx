@@ -8,23 +8,24 @@ import { Message } from './Message/Message';
 import { useRef } from 'react';
 
 
-export default function Messages() {
-    const [messageList, setMessageList] = useState( [] );
+export default function Messages( { addMessage, dialog } ) {
     const [textMessage, setTextMessage] = useState( "" );
     const inputRef = useRef();
+
     useEffect( () => {
-        inputRef.current.focus();
-    }, [] )
-    useEffect( () => {
-        if ( messageList.length > 0 && messageList[messageList.length - 1].author === 'user' ) {
-            let timer = setTimeout( () => {
-                setMessageList( [...messageList, { text: "Я всего лишь робот, который умеет только писать это сообщение :(", author: 'bot' }] );
-            }, 1500 )
-            return () => {
-                clearTimeout( timer );
+        if ( dialog ) {
+            if ( dialog.messages.length > 0 && dialog.messages[dialog.messages.length - 1].author === 'user' ) {
+
+                let timer = setTimeout( () => {
+                    let message = { text: "Я всего лишь бот который умеет писать только это сообщение :(", author: 'bot' };
+                    addMessage( message, dialog.id )
+                }, 1500 )
+                return () => {
+                    clearTimeout( timer );
+                }
             }
         }
-    }, [messageList] )
+    }, [dialog.length, addMessage, dialog.messages, dialog.id, dialog] )
 
     const onChangeInput = ( e ) => {
         e.preventDefault();
@@ -33,11 +34,12 @@ export default function Messages() {
     const onSendMessage = ( e ) => {
         e.preventDefault();
         if ( textMessage === '' ) return;
-        setMessageList( [...messageList, { text: textMessage, author: 'user' }] );
+        let message = { text: textMessage, author: 'user' };
+        addMessage( message, dialog.id )
         setTextMessage( '' );
         inputRef.current.focus();
     }
-    let messages = messageList.map( ( el, idx ) => <div className={el.author === 'bot' ? styles.bot : styles.user} key={idx}><Message Message={el.text} key={idx} /></div> );
+    let messages = dialog.messages.map( ( el, idx ) => <div className={el.author === 'bot' ? styles.bot : styles.user} key={idx}><Message Message={el.text} key={idx} /></div> );
     return (
         <div className={styles.box}>
             <div className={styles.messages}>
