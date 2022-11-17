@@ -1,7 +1,7 @@
 import Dialogs from "./Dialogs/Dialogs";
 import Messages from "./Messages/Messages";
 import style from './Chats.module.scss'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, TextField } from "@mui/material";
 
