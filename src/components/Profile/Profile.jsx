@@ -1,6 +1,8 @@
 import { Button, TextField } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useMemo } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { saveName, setName, setToggleNewName } from '../../redux/actions';
+import { getStatusName } from '../../redux/profileReducer/selectorProfile';
 import style from './Profile.module.scss'
 
 export default function Profile() {
@@ -8,7 +10,8 @@ export default function Profile() {
 
     const dispatch = useDispatch();
     const name = useSelector( state => state.profile.name );
-    const showInputNewName = useSelector( state => state.profile.showFieldInputNewName )
+    const getStatusShowInput = useMemo( () => getStatusName(), [] )
+    const showInputNewName = useSelector( getStatusShowInput, shallowEqual )
 
 
     const setNewNameHandler = () => {

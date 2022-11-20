@@ -1,7 +1,7 @@
 import Dialogs from "./Dialogs/Dialogs";
 import Messages from "./Messages/Messages";
 import style from './Chats.module.scss'
-import InputNewChat from "./InputNewChat/InputNewChat";
+import DialogsNewChat from "./InputNewChat/DialogsNewChat";
 
 export default function Chats() {
 
@@ -12,7 +12,7 @@ export default function Chats() {
                 <Dialogs />
             </div>
             <div className={style.containerNewDialog}>
-                <InputNewChat />
+                <DialogsNewChat />
             </div>
         </div>
         <div className={style.messages}>

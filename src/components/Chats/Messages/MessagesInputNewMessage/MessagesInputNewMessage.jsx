@@ -1,8 +1,9 @@
 import { Button, TextareaAutosize } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { inputChat, sendMessage, sendMessageBot } from "../../../../redux/actions";
+import { getMessageList } from "../../../../redux/messagesReducer/selectorMessages";
 
 export default function MessagesInputNewMessage( { id } ) {
 
@@ -10,7 +11,9 @@ export default function MessagesInputNewMessage( { id } ) {
     const dispatch = useDispatch();
     const textMessage = useSelector( state => state.messages.textNewMessage );
 
-    const currChat = useSelector( state => state.messages.messageList[id] )
+    const getCurrentChat = useMemo( () => getMessageList( id ), [id] );
+
+    const currChat = useSelector( getCurrentChat );
 
     useEffect( () => {
         if ( currChat ) {
