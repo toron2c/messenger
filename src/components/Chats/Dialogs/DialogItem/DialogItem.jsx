@@ -1,24 +1,23 @@
-import { Button, ListItem } from "@mui/material";
+import { ListItem } from "@mui/material";
+import React from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from './DialogItem.module.scss'
+import DialogItemButtonRemove from "./DialogItemButtonRemove/DialogItemButtonRemove";
 
 
-export default function DialogItem( { id, name, removeDialog } ) {
+export default function DialogItem( { id, name } ) {
     let [visibleButton, setVisibleButton] = useState( false );
-
-    const removeButtonHandler = ( e ) => {
-        e.preventDefault();
-        removeDialog( id );
-    }
-
-    return ( <div className={styles.list}>
+    return ( <>
         <ListItem
+            className={styles.item}
             onMouseEnter={() => setVisibleButton( true )}
             onMouseLeave={() => setVisibleButton( false )}
-            className={styles.item} disablePadding key={id} alignItems="flex-start">
-            <NavLink className={( { isActive } ) => isActive ? styles.activeDialog : styles.buttonChat} to={`${id}`}>{name}</NavLink>
-            {visibleButton && <Button onClick={removeButtonHandler} className={styles.removeButton}>X</Button>}
+            disablePadding alignItems="flex-start">
+            <div className={styles.itemName} >
+                <div className={styles.itemBox}><NavLink className={( { isActive } ) => isActive ? styles.activeDialog : styles.buttonChat} to={`${id}`}>{name}</NavLink></div>
+                {visibleButton && <DialogItemButtonRemove id={id} />}
+            </div>
         </ListItem>
-    </div> )
+    </> )
 }
