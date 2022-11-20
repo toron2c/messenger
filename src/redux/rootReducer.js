@@ -1,6 +1,10 @@
 import { combineReducers } from 'redux'
-import { profileReducer } from './profileReducer'
+import { profileReducer } from './profileReducer/profileReducer'
+import { chatsReducer } from './chatsReducer/chatsReducer'
+import { messagesReducer } from './messagesReducer/messagesReducer'
 
 export const rootReducer = combineReducers( {
-    profile: profileReducer
+    profile: profileReducer,
+    chats: chatsReducer,
+    messages: messagesReducer
 } )

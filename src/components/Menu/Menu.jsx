@@ -1,7 +1,10 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import style from './Menu.module.scss'
 
+
+
 export default function Menu() {
+
 
     return ( <div className={style.app}>
         <div className={style.menu}>
