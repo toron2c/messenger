@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import MessagesInputNewMessage from './MessagesInputNewMessage/MessagesInputNewMessage';
 import MessageList from './MessageList/MessageList';
 import { useMemo } from 'react';
-import { checkCorrectId } from '../../../redux/chatsReducer/selectorChats';
+import { checkCorrectId } from '../../../redux/reducers/chatsReducer/selectorChats';
 
 
 export default function Messages() {

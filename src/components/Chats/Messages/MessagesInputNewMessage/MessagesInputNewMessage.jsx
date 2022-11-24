@@ -1,9 +1,8 @@
 import { Button, TextareaAutosize } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
-import { useEffect, useMemo, useRef } from "react";
+import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { inputChat, sendMessage, sendMessageBot } from "../../../../redux/actions";
-import { getMessageList } from "../../../../redux/messagesReducer/selectorMessages";
+import { inputChat, sendMessageWithSage } from "../../../../redux/actions";
 
 export default function MessagesInputNewMessage( { id } ) {
 
@@ -11,22 +10,6 @@ export default function MessagesInputNewMessage( { id } ) {
     const dispatch = useDispatch();
     const textMessage = useSelector( state => state.messages.textNewMessage );
 
-    const getCurrentChat = useMemo( () => getMessageList( id ), [id] );
-
-    const currChat = useSelector( getCurrentChat );
-
-    useEffect( () => {
-        if ( currChat ) {
-            if ( currChat.length > 0 && currChat[currChat.length - 1].author === 'user' ) {
-                let timer = setTimeout( () => {
-                    dispatch( sendMessageBot( id ) );
-                }, 1500 )
-                return () => {
-                    clearTimeout( timer );
-                }
-            }
-        }
-    }, [currChat, dispatch, id] )
 
     const onChangeInput = ( e ) => {
         e.preventDefault();
@@ -35,7 +18,7 @@ export default function MessagesInputNewMessage( { id } ) {
     const onSendMessage = ( e ) => {
         e.preventDefault();
         if ( textMessage === '' ) return;
-        dispatch( sendMessage( id ) );
+        dispatch( sendMessageWithSage( id, 'user' ) );
         inputRef.current.focus();
     }
 

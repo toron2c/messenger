@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material'
 import { useMemo } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { saveName, setName, setToggleNewName } from '../../redux/actions';
-import { getStatusName } from '../../redux/profileReducer/selectorProfile';
+import { getStatusName } from '../../redux/reducers/profileReducer/selectorProfile';
 import style from './Profile.module.scss'
 
 export default function Profile() {

@@ -1,7 +1,7 @@
 import { List } from "@mui/material";
 import React, { useCallback } from "react";
 import { useSelector } from "react-redux";
-import { getChatsList } from "../../../redux/chatsReducer/selectorChats";
+import { getChatsList } from "../../../redux/reducers/chatsReducer/selectorChats";
 import DialogItem from "./DialogItem/DialogItem";
 
 export default function Dialogs() {

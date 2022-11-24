@@ -1,4 +1,4 @@
-import { SAVE_NEW_NAME, SET_NAME, TOGGLE_NEW_NAME } from "../types"
+import { SAVE_NEW_NAME, SET_NAME, TOGGLE_NEW_NAME } from "../../types"
 
 
 

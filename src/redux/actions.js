@@ -1,4 +1,15 @@
-import { ADD_CHAT, CHANGE_NAME_CHAT, INPUT_CHAT, REMOVE_CHAT, SAVE_NEW_NAME, SEND_MESSAGE, SEND_MESSAGE_BOT, SET_NAME, TOGGLE_NEW_CHAT, TOGGLE_NEW_NAME } from "./types";
+import {
+    ADD_CHAT,
+    CHANGE_NAME_CHAT,
+    INPUT_CHAT,
+    REMOVE_CHAT,
+    SAVE_NEW_NAME,
+    SEND_MESSAGE,
+    SEND_MESSAGE_WITH_SAGA,
+    SET_NAME,
+    TOGGLE_NEW_CHAT,
+    TOGGLE_NEW_NAME
+} from "./types";
 
 
 
@@ -54,16 +65,18 @@ export function inputChat( value ) {
     }
 }
 
-export function sendMessage( id ) {
+export function sendMessage( id, author ) {
     return {
         type: SEND_MESSAGE,
-        idChat: id
+        id: id,
+        author: author
     }
 }
 
-export function sendMessageBot( id ) {
+export function sendMessageWithSage( id, author ) {
     return {
-        type: SEND_MESSAGE_BOT,
-        idChat: id
+        type: SEND_MESSAGE_WITH_SAGA,
+        id: id,
+        author: author
     }
 }

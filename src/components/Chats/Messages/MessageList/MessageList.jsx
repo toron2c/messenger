@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import { Message } from "./MessageListItem/Message"
 import styles from '../Messages.module.scss'
 import React, { useMemo } from "react"
-import { getMessageList } from "../../../../redux/messagesReducer/selectorMessages"
+import { getMessageList } from "../../../../redux/reducers/messagesReducer/selectorMessages"
 import { useParams } from "react-router-dom"
 
 

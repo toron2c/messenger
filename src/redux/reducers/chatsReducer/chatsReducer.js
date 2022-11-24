@@ -1,4 +1,4 @@
-import { ADD_CHAT, CHANGE_NAME_CHAT, REMOVE_CHAT, TOGGLE_NEW_CHAT } from "../types";
+import { ADD_CHAT, CHANGE_NAME_CHAT, REMOVE_CHAT, TOGGLE_NEW_CHAT } from "../../types";
 
 
 const initialState = {
