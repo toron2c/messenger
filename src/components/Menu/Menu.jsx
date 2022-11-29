@@ -19,11 +19,6 @@ export default function Menu() {
                     <li><NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/chats">
                         Chats
                     </NavLink></li>
-                    <li>
-                        <NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/cats">
-                            Cats
-                        </NavLink>
-                    </li>
                 </ul>
             </nav>
         </div>
