@@ -1,11 +1,14 @@
 import {
     ADD_CHAT,
     CHANGE_NAME_CHAT,
+    GET_INIT_LIST,
     INPUT_CHAT,
     REMOVE_CHAT,
     SAVE_NEW_NAME,
     SEND_MESSAGE,
     SEND_MESSAGE_WITH_SAGA,
+    SET_ERROR,
+    SET_LIST,
     SET_NAME,
     TOGGLE_NEW_CHAT,
     TOGGLE_NEW_NAME
@@ -78,5 +81,29 @@ export function sendMessageWithSage( id, author ) {
         type: SEND_MESSAGE_WITH_SAGA,
         id: id,
         author: author
+    }
+}
+
+export function getListCharacters( page = 1 ) {
+    return {
+        type: GET_INIT_LIST,
+        page: page
+    }
+}
+
+export function setList( payload ) {
+    return {
+        type: SET_LIST,
+        payload
+    }
+}
+
+export function setError( error, page ) {
+    return {
+        type: SET_ERROR,
+        payload: {
+            message: error,
+            page: page
+        }
     }
 }

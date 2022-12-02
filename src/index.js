@@ -6,25 +6,25 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { persistor, store, sagaMiddleWare } from './redux/index';
-import { messageWatcher } from './redux/redux-saga/messageSaga';
 import { PersistGate } from 'redux-persist/integration/react';
+import rootWatcher from './redux/redux-saga/rootSaga';
 
 
 
 
-sagaMiddleWare.run( messageWatcher );
+sagaMiddleWare.run( rootWatcher );
 
 const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </PersistGate>
-    </Provider>
-  </React.StrictMode >
+  // <React.StrictMode>
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </PersistGate>
+  </Provider>
+  // </React.StrictMode >
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -18,5 +18,7 @@ export const INPUT_CHAT = 'MESSAGES::INPUT_CHAT';
 export const SEND_MESSAGE = 'MESSAGES::SEND_MESSAGE'
 export const SEND_MESSAGE_WITH_SAGA = 'MESSAGES::SEND_MESSAGE_WITH_SAGA';
 
-
-//send message from bot
+// Characters
+export const GET_INIT_LIST = 'CHARACTERS::GET_INIT_LIST';
+export const SET_LIST = 'CHARACTERS::SET_LIST';
+export const SET_ERROR = 'CHARACTERS::SET_ERROR';

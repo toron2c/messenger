@@ -1,0 +1,39 @@
+.boxCharacters {
+    display: grid;
+    .boxCharactersList {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1;
+        @media (max-width: 900px) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+        @media (max-width: 600px) {
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: repeat(10,10%);
+        }
+    }
+}
+.controllers {
+    padding: 3px 0;
+    grid-row-end: 1;
+    display: flex;
+    justify-content: space-around;
+    .button {
+        font-weight: bolder;
+    }
+}
+
+.error {
+    font-size: 3rem;
+    color: #347c7c;
+    word-wrap: break-word;
+    .reloadBox {
+        padding: 10px 5px;
+        .reload {
+            display: block;
+            margin: 0 auto;
+            font-size:larger;
+        }
+    }
+}
+

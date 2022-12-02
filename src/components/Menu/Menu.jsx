@@ -2,10 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 import style from './Menu.module.scss'
 
 
-
 export default function Menu() {
-
-
     return ( <div className={style.app}>
         <div className={style.menu}>
             <nav>
@@ -20,8 +17,8 @@ export default function Menu() {
                         Chats
                     </NavLink></li>
                     <li>
-                        <NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/cats">
-                            Cats
+                        <NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/characters">
+                            Characters
                         </NavLink>
                     </li>
                 </ul>

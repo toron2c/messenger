@@ -1,4 +1,4 @@
-import { INPUT_CHAT, SEND_MESSAGE } from "../../types";
+import { INPUT_CHAT, REMOVE_CHAT, SEND_MESSAGE } from "../../types";
 
 
 
@@ -48,6 +48,15 @@ export const messagesReducer = ( state = initialState, action ) => {
                 }
             }
         }
+        case REMOVE_CHAT:
+            const currentList = state.messageList;
+            delete currentList[action.id]
+            return {
+                ...state,
+                messageList: {
+                    ...currentList
+                }
+            }
         default:
             return state;
     }
