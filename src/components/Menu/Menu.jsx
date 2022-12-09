@@ -21,6 +21,11 @@ export default function Menu() {
                             Characters
                         </NavLink>
                     </li>
+                    {/* <li>
+                        <NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/Registration">
+                            Registration
+                        </NavLink>
+                    </li> */}
                 </ul>
             </nav>
         </div>
