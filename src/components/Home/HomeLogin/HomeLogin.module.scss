@@ -1,7 +1,8 @@
 .list {
     list-style-type: none;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    padding: 0;
     .listLink {
         text-decoration-line: none;
         margin:0 10px 0 0;
