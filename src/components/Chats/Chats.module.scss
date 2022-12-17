@@ -2,24 +2,34 @@
     display: grid;
     grid-template-columns: 1fr 4fr;
     box-sizing: border-box;
-    height: 93%;
-    max-height: 93%;
+    height: 100%;
     .messages {
         background-color: #99dfff;
-        max-height: 100%;
+        // max-height: 100%;
         border-radius: 6px;
         border-top-right-radius: 0;
         box-sizing: border-box;
     }
     .containerDialog {
-        max-height: 90%;
+        // max-height: 90%;
         display: grid;
-        grid-template-rows: 8fr 1fr;
+        grid-template-rows: 6fr 1fr;
         box-sizing: border-box;
         .dialogs {
             min-height: 95%;
             max-height: 540px;
             overflow-x: auto;
+            &::-webkit-scrollbar {
+                width: 5px;
+                height: 5px;   
+            }
+            &::-webkit-scrollbar-track {
+            background: transparent;
+            }
+            &::-webkit-scrollbar-thumb {
+            background-color: #2474cf94;
+            border-radius: 20px;       
+            }
         }
         .containerNewDialog {
             box-sizing: border-box;

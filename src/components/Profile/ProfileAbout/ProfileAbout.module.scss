@@ -1,0 +1,52 @@
+// ProfileAboutContainerEmail
+
+
+//ContainerField
+.containerField {
+    display: flex;
+        
+    padding: 10px;
+    // max-width: 250px;
+    .containerFieldTitle {
+        font-weight: 300;
+        color: #888585;
+        padding: 5px;
+        
+    }
+    .containerFieldValue {
+        font-weight: 600;
+        padding: 5px;
+        color: #1565c0;
+    }
+    
+    
+    @media (max-width:600px) {
+        height: 50px;
+    }
+    .containerFieldButton {
+        margin: auto 30px;
+    }
+}
+
+// Container Field About
+.containerFieldAbout {
+    display: flex;
+    // height: 30px;    
+    padding: 10px;
+    @media (max-width:600px) {
+        display: grid;
+    }
+    // max-width: 250px;
+    .containerFieldTitle {
+        font-weight: 300;
+        color: #888585;
+        padding: 5px;
+    }
+    .containerFieldValueAbout {
+        color: #1565c0;
+        width: 250px;
+    }
+    .containerFieldButton {
+        margin: auto 14px;
+    }
+}

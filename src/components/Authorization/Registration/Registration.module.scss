@@ -1,0 +1,20 @@
+.registrationTitle {
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #1565c0d7;
+    text-transform: uppercase;
+}
+
+.registrationButton {
+    display: flex;
+    flex-direction: row-reverse;
+    text-transform: uppercase;
+    margin: 16px 0;
+}
+
+.error {
+    margin: 10px 0;
+    font-size: 0.9em;
+    color: red;
+    font-weight: 300;
+}

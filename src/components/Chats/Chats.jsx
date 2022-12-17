@@ -4,6 +4,8 @@ import style from './Chats.module.scss'
 import DialogsNewChat from "./InputNewChat/DialogsNewChat";
 
 export default function Chats() {
+
+
     return (
         <div className={style.chats}>
             <div className={style.containerDialog}>

@@ -1,40 +1,52 @@
-import { Button, TextField } from '@mui/material'
-import { useMemo } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { saveName, setName, setToggleNewName } from '../../redux/actions';
-import { getStatusName } from '../../redux/reducers/profileReducer/selectorProfile';
+import { useDispatch } from 'react-redux'
+// import { saveName, setName, setToggleNewName } from '../../redux/actions';
+// import { getStatusName } from '../../redux/reducers/profileReducer/selectorProfile';
+import { Button } from '@mui/material';
+import { shallowEqual, useSelector } from 'react-redux';
+import { getStatusToggleEditProfile } from '../../redux/reducers/profileReducer/selectorProfile';
 import style from './Profile.module.scss'
+import { ProfileAboutContainer } from './ProfileAbout/ProfileAbout';
+import { ProfileAboutInputs } from './ProfileAboutInput/ProfileAboutInputs';
+import { saveProfileWithSaga, setToggleProfileEdit } from '../../redux/actions';
 
+let i = 0;
 export default function Profile() {
-
-
     const dispatch = useDispatch();
-    const name = useSelector( state => state.profile.name );
-    const getStatusShowInput = useMemo( () => getStatusName(), [] )
-    const showInputNewName = useSelector( getStatusShowInput, shallowEqual )
+    // const name = useSelector( state => state.profile.name );
+    // const getStatusShowInput = useMemo( () => getStatusName(), [] )
+    // const showInputNewName = useSelector( getStatusShowInput, shallowEqual )
 
 
-    const setNewNameHandler = () => {
-        dispatch( setToggleNewName() )
-    }
-    const onChangeName = ( e ) => {
+    const toggleProfileEditHandler = ( e ) => {
         e.preventDefault();
-        dispatch( setName( e.target.value ) );
-
+        dispatch( setToggleProfileEdit() )
     }
+    // const onChangeName = ( e ) => {
+    //     e.preventDefault();
+    //     dispatch( setName( e.target.value ) );
 
+    // }
+    const isEditProfiled = useSelector( getStatusToggleEditProfile(), shallowEqual );
 
-    const saveNameHandler = ( e ) => {
+    const saveProfileHandler = ( e ) => {
         e.preventDefault();
-        dispatch( saveName() );
+        dispatch( saveProfileWithSaga() );
     }
 
-
-    return ( <div>
-        <div><h1 className={style.title}>Profile</h1></div>
-        {showInputNewName ?
-            <div className={style.inputs}><TextField onChange={onChangeName} id="outlined-basic" value={name} label="Name" variant="outlined" />
-                <Button className={style.inputsButton} onClick={saveNameHandler} variant="contained">Save</Button></div> :
-            <div title="Double click to change name" onDoubleClick={setNewNameHandler} className={style.name}>{name}</div>}
-    </div> )
+    console.log( `render PROFILE ${i++}` )
+    return (
+        <div className={style.profileBox}>
+            <h1 className={style.title}>{!isEditProfiled ? 'Profile' : 'Edit profile'}</h1>
+            {!isEditProfiled ?
+                <>
+                    <Button onClick={toggleProfileEditHandler} className={style.profileBoxButtonEdit}>Edit profile</Button>
+                    <ProfileAboutContainer />
+                </>
+                : <form>
+                    <ProfileAboutInputs />
+                    <Button onClick={saveProfileHandler} type='submit' className={style.profileBoxButtonEdit}>Save</Button>
+                </form>
+            }
+        </div>
+    )
 }

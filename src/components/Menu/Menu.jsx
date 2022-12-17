@@ -1,21 +1,29 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, NavLink, Outlet } from 'react-router-dom'
+import { logoutAuthWithSaga } from '../../redux/actions'
 import style from './Menu.module.scss'
 
 
-export default function Menu() {
+export default function Menu( { isAuth } ) {
+    const dispatch = useDispatch();
+    const onClickLogout = ( e ) => {
+        e.preventDefault();
+        dispatch( logoutAuthWithSaga() );
+    }
+
     return ( <div className={style.app}>
-        <div className={style.menu}>
-            <nav>
+        <header className={style.menu}>
+            <nav className={style.menuNavigation}>
                 <ul className={style.list}>
                     <li><NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/">
                         Home
                     </NavLink></li>
-                    <li><NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/profile">
+                    {isAuth && <li><NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/profile">
                         Profile
-                    </NavLink></li>
-                    <li><NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/chats">
+                    </NavLink></li>}
+                    {isAuth && <li><NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/chats">
                         Chats
-                    </NavLink></li>
+                    </NavLink></li>}
                     <li>
                         <NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/characters">
                             Characters
@@ -28,8 +36,13 @@ export default function Menu() {
                     </li> */}
                 </ul>
             </nav>
-        </div>
-        <Outlet />
+            {isAuth ?
+                <Link className={style.authButton} onClick={onClickLogout}>LOGOUT</Link>
+                : <Link className={style.authButton} to='/login'>Sign In</Link>}
+        </header>
+        <main className={style.main}>
+            <Outlet />
+        </main>
     </div>
     )
 }

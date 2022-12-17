@@ -6,7 +6,7 @@ import style from './InputNewChat.module.scss'
 export default function InputNewChat() {
     const dispatch = useDispatch();
 
-    const newNameChat = useSelector( state => state.chats.newNameChat );
+    const newNameChat = useSelector( state => state.chats.nameNewChat );
     const onChangeInputNewChat = ( e ) => {
         e.preventDefault();
         dispatch( changeNameNewChat( e.target.value ) );
@@ -14,13 +14,15 @@ export default function InputNewChat() {
 
     const addNewChatHandler = ( e ) => {
         e.preventDefault();
-        dispatch( addNewChat() );
+        if ( newNameChat ) {
+            dispatch( addNewChat() );
+        }
     }
 
 
     return (
-        <>
-            <TextField onChange={onChangeInputNewChat} value={newNameChat} id="outlined-basic" label="Name chat" variant="outlined" />
-            <div className={style.newChatButton}><Button onClick={addNewChatHandler} variant="contained">Create</Button></div>
-        </> )
+        <form>
+            <TextField type='email' required onChange={onChangeInputNewChat} value={newNameChat} label="Name chat" variant="outlined" />
+            <div className={style.newChatButton}><Button type="submit" onClick={addNewChatHandler} variant="contained">Create</Button></div>
+        </form> )
 }

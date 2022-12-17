@@ -23,7 +23,6 @@ function* getListWorker( { page } ) {
         }
         yield put( setList( data ) );
     } catch ( e ) {
-
         yield put( setError( e.message, page ) );
     }
 }

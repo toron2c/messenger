@@ -3,11 +3,11 @@ import style from './Home.module.scss'
 import { HomeLogin } from "./HomeLogin/HomeLogin";
 
 
-export default function Home() {
+export default function Home( { isAuth } ) {
     return (
         <div className={style.home}>
             <Typography className={style.logo} variant="h1">Messenger 2000</Typography>
-            <HomeLogin />
+            {!isAuth && <HomeLogin />}
         </div>
     )
 }

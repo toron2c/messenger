@@ -1,28 +1,51 @@
-import { SAVE_NEW_NAME, SET_NAME, TOGGLE_NEW_NAME } from "../../types"
+import { INITIALIZE_PROFILE, SET_ABOUT_PROFILE, SET_NAME_PROFILE, SET_STATUS_PROFILE, TOGGLE_PROFILE_EDIT } from "../../types"
 
 
 
 const initialState = {
-    name: 'Name',
-    showFieldInputNewName: false,
+    email: '',
+    name: '',
+    uid: '',
+    infoUser: {
+        status: '',
+        about: ''
+    },
+    isEditProfile: false
 }
 
 export const profileReducer = ( state = initialState, action ) => {
     switch ( action.type ) {
-        case TOGGLE_NEW_NAME:
+        case INITIALIZE_PROFILE: {
             return {
                 ...state,
-                showFieldInputNewName: true
+                ...action.payload,
             }
-        case SET_NAME:
+        }
+        case TOGGLE_PROFILE_EDIT:
             return {
                 ...state,
-                name: action.text
+                isEditProfile: !state.isEditProfile
             }
-        case SAVE_NEW_NAME:
+        case SET_NAME_PROFILE:
             return {
                 ...state,
-                showFieldInputNewName: false,
+                name: action.value
+            }
+        case SET_STATUS_PROFILE:
+            return {
+                ...state,
+                infoUser: {
+                    ...state.infoUser,
+                    status: action.value
+                }
+            }
+        case SET_ABOUT_PROFILE:
+            return {
+                ...state,
+                infoUser: {
+                    ...state.infoUser,
+                    about: action.value
+                }
             }
         default:
             return state

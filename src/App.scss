@@ -1,10 +1,25 @@
 
+body::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;               /* ширина всей полосы прокрутки */
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: transparent;        /* цвет зоны отслеживания */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #2474cf69;
+    border-radius: 20px;       /* округлось бегунка */
+    // border: 3px solid orange;  /* отступ вокруг бегунка */
+  }
+
 .box {
     width: 100vw;
     height: 100vh;
-    border: 10px solid #1565c0;
-    border-radius: 5px;
+    // border: 1% solid #1565c0;
+    // border-radius: 5px;
     box-sizing: border-box;
-    padding: 0;
+    padding-top: 5px;
     margin: 0;
 }

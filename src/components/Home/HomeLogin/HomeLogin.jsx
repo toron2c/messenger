@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom"
+import { Link } from "react-router-dom"
 import style from './HomeLogin.module.scss'
 
 
@@ -7,14 +7,14 @@ export const HomeLogin = () => {
     return (
         <ul className={style.list}>
             <li>
-                <NavLink className={style.listLink}>
+                <Link to='/login' className={style.listLink}>
                     Sign In
-                </NavLink>
+                </Link>
             </li>
             <li>
-                <NavLink className={style.listLink}>
+                <Link to='/registration' className={style.listLink}>
                     Sign Up
-                </NavLink>
+                </Link>
             </li>
         </ul>
     )

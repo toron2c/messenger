@@ -1,0 +1,25 @@
+.box {
+    padding-top: 7%;
+    .boxInputs {
+        border: 3px solid #1565c0;
+        border-radius: 7px;
+        margin:0 auto;
+        height:max-content;
+        max-width: 250px;
+        padding: 30px 34px 15px;
+    }
+}
+
+.boxCreateAccount {
+    border: 3px solid #1565c093;
+    border-radius: 7px;
+    margin: 20px auto;
+    height:max-content;
+    max-width: 250px;
+    padding: 15px 34px;
+    .link {
+        padding: 0;
+        margin: 0;
+        color: #1565c0;
+    }
+}
