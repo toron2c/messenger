@@ -5,6 +5,7 @@ import {
     AUTHORIZATION_USER,
     CHANGE_NAME_CHAT,
     CLEAR_FIELDS_AUTH,
+    DELETE_DATA_AFTER_LOGOUT,
     GET_CHATS_WITH_SAGA,
     GET_INIT_LIST,
     INITIALIZE_PROFILE,
@@ -17,6 +18,7 @@ import {
     SEND_MESSAGE,
     SEND_MESSAGE_WITH_SAGA,
     SET_ABOUT_PROFILE,
+    SET_CLOSED_SUBSCRIBE,
     SET_EMAIL,
     SET_ERROR,
     SET_ERROR_AUTH,
@@ -113,7 +115,15 @@ export function addChatToStore( data ) {
  * @returns {*} type: action
  */
 export function setSubscribeOnNewChats() {
-    return { type: SET_SUBSCRIBE_ACTIVE }
+    return { type: SET_SUBSCRIBE_ACTIVE, }
+}
+
+/**
+ * function set status subscribe
+ * @returns {*} type: action
+ */
+export function closedSubscribeOnNewChats() {
+    return { type: SET_CLOSED_SUBSCRIBE }
 }
 /**
  * function action add new element chat
@@ -259,11 +269,6 @@ export function clearFields() {
     }
 }
 
-export function logoutAuthWithSaga() {
-    return {
-        type: LOGOUT_AUTH_WITH_SAGA
-    }
-}
 
 export function logoutAuth() {
     return {
@@ -280,5 +285,21 @@ export function initializeProfile( data ) {
     return {
         type: INITIALIZE_PROFILE,
         payload: data
+    }
+}
+
+/**
+ * function action, logout with auth
+ * @returns {*} type action
+ */
+export function logoutAuthWithSaga() {
+    return {
+        type: LOGOUT_AUTH_WITH_SAGA
+    }
+}
+
+export function deleteDataAfterLogout() {
+    return {
+        type: DELETE_DATA_AFTER_LOGOUT
     }
 }

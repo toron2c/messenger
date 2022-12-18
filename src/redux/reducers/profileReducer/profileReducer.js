@@ -1,4 +1,4 @@
-import { INITIALIZE_PROFILE, SET_ABOUT_PROFILE, SET_NAME_PROFILE, SET_STATUS_PROFILE, TOGGLE_PROFILE_EDIT } from "../../types"
+import { DELETE_DATA_AFTER_LOGOUT, INITIALIZE_PROFILE, SET_ABOUT_PROFILE, SET_NAME_PROFILE, SET_STATUS_PROFILE, TOGGLE_PROFILE_EDIT } from "../../types"
 
 
 
@@ -47,6 +47,18 @@ export const profileReducer = ( state = initialState, action ) => {
                     about: action.value
                 }
             }
+        case DELETE_DATA_AFTER_LOGOUT: {
+            return {
+                email: '',
+                name: '',
+                uid: '',
+                infoUser: {
+                    status: '',
+                    about: ''
+                },
+                isEditProfile: false
+            }
+        }
         default:
             return state
     }

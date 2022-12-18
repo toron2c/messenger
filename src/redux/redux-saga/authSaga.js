@@ -2,7 +2,7 @@ import { put, select, takeLatest } from "redux-saga/effects";
 import { AUTHORIZATION_USER, LOGOUT_AUTH_WITH_SAGA, REGISTRATION_USER } from "../types";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@firebase/auth'
 import { auth, fs } from '../../services/firebase'
-import { initializeProfile, logoutAuth, setErrorAuth, setStatusAuth, getChatsWithSaga } from "../actions";
+import { initializeProfile, logoutAuth, setErrorAuth, setStatusAuth, getChatsWithSaga, deleteDataAfterLogout } from "../actions";
 import { get, getDatabase, ref, set } from "firebase/database";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
@@ -14,6 +14,7 @@ function* registrationUserWorker() {
         yield createUserWithEmailAndPassword( auth, data.email, data.pass );
         yield initializeProfileInDB();
         yield initializeProfileWorker();
+        yield put( getChatsWithSaga() );
         yield put( setStatusAuth( true ) );
     } catch ( e ) {
         let message = e.message.substring( e.message.search( 'Firebase:' ) + 10 );
@@ -48,8 +49,6 @@ function* initializeProfileInDB() {
             dialogs: [],
             chats: [],
         } );
-
-
     } catch ( error ) {
         console.error( `Error registration! Please contact to Administration Chat!(@toron2c) ErrorMessage: ${error.message}` )
     }
@@ -58,6 +57,7 @@ function* initializeProfileInDB() {
 function* logoutUserWorker() {
     yield signOut( auth )
     yield put( logoutAuth() );
+    yield put( deleteDataAfterLogout() );
 }
 
 function* initializeProfileWorker() {

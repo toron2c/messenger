@@ -1,4 +1,4 @@
-import { CLEAR_FIELDS_AUTH, LOGOUT_AUTH, SET_EMAIL, SET_ERROR_AUTH, SET_PASSWORD, SET_STATUS_AUTH } from "../../types";
+import { CLEAR_FIELDS_AUTH, DELETE_DATA_AFTER_LOGOUT, LOGOUT_AUTH, SET_EMAIL, SET_ERROR_AUTH, SET_PASSWORD, SET_STATUS_AUTH } from "../../types";
 
 
 const initialState = {
@@ -58,6 +58,17 @@ export const authReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 isAuth: false
+            }
+        }
+        case DELETE_DATA_AFTER_LOGOUT: {
+            return {
+                email: '',
+                pass: '',
+                isAuth: false,
+                error: {
+                    isError: false,
+                    message: ''
+                }
             }
         }
 

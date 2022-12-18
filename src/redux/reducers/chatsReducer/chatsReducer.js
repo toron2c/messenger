@@ -1,4 +1,4 @@
-import { ADD_CHAT, ADD_CHAT_TO_STORE, ADD_NEW_ELEMENT_TO_CHAT, CHANGE_NAME_CHAT, REMOVE_CHAT, SET_SUBSCRIBE_ACTIVE, TOGGLE_NEW_CHAT } from "../../types";
+import { ADD_CHAT, ADD_CHAT_TO_STORE, ADD_NEW_ELEMENT_TO_CHAT, CHANGE_NAME_CHAT, DELETE_DATA_AFTER_LOGOUT, REMOVE_CHAT, SET_CLOSED_SUBSCRIBE, SET_SUBSCRIBE_ACTIVE, TOGGLE_NEW_CHAT } from "../../types";
 
 
 const initialState = {
@@ -22,7 +22,7 @@ export const chatsReducer = ( state = initialState, action ) => {
                 nameNewChat: action.text
             }
         case ADD_CHAT_TO_STORE: {
-            // console.log( action.payload );
+            console.log( action );
             return {
                 ...state,
                 chatList: [...action.payload]
@@ -32,6 +32,12 @@ export const chatsReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 subscribeActived: true
+            }
+        }
+        case SET_CLOSED_SUBSCRIBE: {
+            return {
+                ...state,
+                subscribeActived: false
             }
         }
         case ADD_NEW_ELEMENT_TO_CHAT: {
@@ -48,7 +54,14 @@ export const chatsReducer = ( state = initialState, action ) => {
                 ...state,
                 chatList: state.chatList.filter( el => el.id !== action.id )
             }
-
+        case DELETE_DATA_AFTER_LOGOUT:
+            return {
+                toggleNewChat: false,
+                nameNewChat: '',
+                chatList: [
+                ],
+                subscribeActived: false
+            }
         default:
             return state;
     }
