@@ -1,13 +1,17 @@
 import {
     ADD_CHAT_TO_STORE,
     ADD_CHAT_WITH_SAGA,
+    ADD_MESSAGES_TO_STORE,
     ADD_NEW_ELEMENT_TO_CHAT,
+    ADD_OLD_MESSAGES_TO_STORE,
     AUTHORIZATION_USER,
     CHANGE_NAME_CHAT,
     CLEAR_FIELDS_AUTH,
     DELETE_DATA_AFTER_LOGOUT,
     GET_CHATS_WITH_SAGA,
     GET_INIT_LIST,
+    GET_MESSAGES_WITH_SAGA,
+    GET_OLD_MESSAGES_WITH_SAGA,
     INITIALIZE_PROFILE,
     INPUT_CHAT,
     LOGOUT_AUTH,
@@ -48,8 +52,8 @@ export function setToggleProfileEdit() {
 
 /**
  * function action change name
- * @param {*} text new value name
- * @returns {type: type action, value: new value name} 
+ * @param {string} text new value name
+ * @returns type: type action, value: new value name 
  */
 export function setNameProfile( text ) {
     return {
@@ -60,7 +64,7 @@ export function setNameProfile( text ) {
 
 /**
  * function action change status
- * @param {*} text new value status
+ * @param {string} text new value status
  * @returns {type: type action, value: new value status} 
  */
 export function setStatusProfile( text ) {
@@ -72,7 +76,7 @@ export function setStatusProfile( text ) {
 
 /**
  * function action change about
- * @param {*} text new value about
+ * @param {string} text new value about
  * @returns {type: type action, value: new value status} 
  */
 export function setAboutProfile( text ) {
@@ -101,7 +105,7 @@ export function getChatsWithSaga() {
 }
 /**
  * function action put chats to state
- * @param {*} data - chats array
+ * @param {array} data - chats array
  * @returns {*} {type: action, payload: chats array}
  */
 export function addChatToStore( data ) {
@@ -115,7 +119,7 @@ export function addChatToStore( data ) {
  * @returns {*} type: action
  */
 export function setSubscribeOnNewChats() {
-    return { type: SET_SUBSCRIBE_ACTIVE, }
+    return { type: SET_SUBSCRIBE_ACTIVE }
 }
 
 /**
@@ -127,7 +131,7 @@ export function closedSubscribeOnNewChats() {
 }
 /**
  * function action add new element chat
- * @param {*} element new element chat
+ * @param {object} element new element chat
  * @returns {*} type: action, payload: new element chat
  */
 export function addNewElementChat( element ) {
@@ -137,6 +141,8 @@ export function addNewElementChat( element ) {
     }
 }
 
+
+// old ---- add description
 export function toggleNewChatInput() {
     return {
         type: TOGGLE_NEW_CHAT
@@ -176,8 +182,61 @@ export function inputChat( value ) {
 
 
 
-
-
+// *** Messages ***
+/**
+ * function action get messages /// p.s. create limit 15
+ * @param {string} uidChat id chat in firestore
+ * @param {number} linkToDialog link to dialog in app
+ * @returns type action, uid: uid chat, link: link to dialog
+ */
+export function getMessagesWithSaga( uidChat, linkToDialog ) {
+    return {
+        type: GET_MESSAGES_WITH_SAGA,
+        uid: uidChat,
+        link: linkToDialog
+    }
+}
+/**
+ * function action initialize messages with start messages
+ * @param {string} uid uid chat
+ * @param {number} link link to chat
+ * @param {array} messages array messages
+ * @param {number} pageMessages page of messages
+ * @returns type action, uid chat, array messages
+ */
+export function initializeMessagesToStore( uid, link, messages, pageMessage ) {
+    return {
+        type: ADD_MESSAGES_TO_STORE,
+        uid,
+        link,
+        messages,
+        pageMessage
+    }
+}
+/**
+ * function action get old messages with saga
+ * @param {string} uid chat 
+ * @returns 
+ */
+export function getOldMessagesWithSaga( uid ) {
+    return {
+        type: GET_OLD_MESSAGES_WITH_SAGA,
+        uid
+    }
+}
+/**
+ * function action add old messages to store
+ * @param {string} uid 
+ * @param {array} messages 
+ * @returns 
+ */
+export function addOldMessagesToStore( uid, messages ) {
+    return {
+        type: ADD_OLD_MESSAGES_TO_STORE,
+        uid,
+        messages
+    }
+}
 
 
 export function sendMessage( id, author ) {
@@ -188,11 +247,15 @@ export function sendMessage( id, author ) {
     }
 }
 
-export function sendMessageWithSage( id, author ) {
+/**
+ * function action send message with sage
+ * @param {string} uid 
+ * @returns type action
+ */
+export function sendMessageWithSage( uid ) {
     return {
         type: SEND_MESSAGE_WITH_SAGA,
-        id: id,
-        author: author
+        uid
     }
 }
 
@@ -298,6 +361,10 @@ export function logoutAuthWithSaga() {
     }
 }
 
+/**
+ * functiona ction clear all data after logout
+ * @returns {*} {action type};
+ */
 export function deleteDataAfterLogout() {
     return {
         type: DELETE_DATA_AFTER_LOGOUT

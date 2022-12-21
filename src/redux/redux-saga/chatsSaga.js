@@ -3,8 +3,8 @@ import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, onSnapshot, setDo
 import { eventChannel } from "redux-saga";
 import { call, delay, put, select, take, takeLatest } from "redux-saga/effects";
 import { auth, fs } from "../../services/firebase";
-import { addChatToStore, addNewElementChat, setSubscribeOnNewChats } from "../actions";
-import { ADD_CHAT_WITH_SAGA, GET_CHATS_WITH_SAGA, SET_CLOSED_SUBSCRIBE, SET_SUBSCRIBE_ACTIVE } from "../types";
+import { addChatToStore, addNewElementChat, getMessagesWithSaga } from "../actions";
+import { ADD_CHAT_WITH_SAGA, GET_CHATS_WITH_SAGA, SET_SUBSCRIBE_ACTIVE } from "../types";
 
 
 
@@ -15,9 +15,8 @@ import { ADD_CHAT_WITH_SAGA, GET_CHATS_WITH_SAGA, SET_CLOSED_SUBSCRIBE, SET_SUBS
  */
 function* getChatsWorker() {
     try {
-        yield delay( 1000 );
+        yield delay( 500 );
         let dialogs = [];
-        console.log( 111 );
         // ref to user doc 
         const docRef = doc( fs, 'users', auth.currentUser.uid );
         // get doc current user
@@ -26,19 +25,21 @@ function* getChatsWorker() {
             dialogs = profile.data().dialogs;
         }
         let arrayDialogs = [];
-        for ( let dialog of dialogs ) {
+        for ( let [index, dialog] of dialogs.entries() ) {
             let correctDialog = {
                 nameDialog: yield getNameForChatWorker( dialog.uidAnotherUser ),
-                chatId: dialog.chatId
+                chatId: dialog.chatId,
+                linkToDialog: index,
             }
             arrayDialogs.push( correctDialog );
         }
         if ( arrayDialogs.length > 0 ) {
             yield put( addChatToStore( arrayDialogs ) );
+            for ( let dialog of arrayDialogs ) {
+                yield put( getMessagesWithSaga( dialog.chatId, dialog.linkToDialog ) );
+            }
         }
-        console.log( `po4emu?` )
-        yield put( setSubscribeOnNewChats() );
-        yield call( subscribeOnNewChatsWorker );
+
     } catch ( error ) {
         console.error( `error load chat's. please contact to administration (@toron2c)\n message: ${error.message}` );
     }
@@ -152,9 +153,16 @@ function* addDialogWorker( uidAnotherUser ) {
         user = yield getDoc( userRef );
         user = user.data();
         // create new doc for messages data
-        const refMessages = yield addDoc( collection( fs, 'messages' ), {
-            messages: [],
+        const refMessages = yield addDoc( collection( fs, 'dialogs' ), {
         } );
+
+        yield updateDoc( doc( fs, 'dialogs', refMessages.id ), {
+            uidChat: refMessages.id,
+        } )
+        let b = yield collection( refMessages, `${refMessages.id}_messages` );
+        yield setDoc( doc( b ), {} )
+        // yield updateDoc( doc( fs, 'dialogs', refMessages.id, collection( 'messages' ) ) )S
+        // yield addDoc( fs, 'dialogs', refMessages.id, 'messages' )
         // update currentUser add new dialog
         yield updateDoc( doc( fs, 'users', auth.currentUser.uid ), {
             dialogs: arrayUnion( { chatId: refMessages.id, emailAnotherUser: user.email, uidAnotherUser: user.uid, anotherName: user.displayName } )
@@ -171,14 +179,10 @@ function* addDialogWorker( uidAnotherUser ) {
 function* subscribeOnNewChatsWorker() {
     try {
         yield delay( 1000 );
-        console.log( `open connect` )
         const element = yield call( getNewChats );
         while ( yield select( state => state.chats.subscribeActived ) ) {
-            if ( yield take( SET_CLOSED_SUBSCRIBE ) ) {
-                element.close();
-            }
+            const elemChat = yield take( element )
             if ( yield select( state => state.chats.subscribeActived ) ) {
-                const elemChat = yield take( element )
                 let correctElement = {
                     nameDialog: elemChat.anotherName ? elemChat.anotherName : elemChat.emailAnotherUser,
                     chatId: elemChat.chatId
@@ -190,10 +194,8 @@ function* subscribeOnNewChatsWorker() {
                 element.close();
             }
         }
-        // element.close();
-        console.log( 'closed connect' );
     } catch ( error ) {
-        console.log( error );
+        console.log( `Error connection, please contact to administration (@toron2c)\n message: ${error.message}` );
     }
 }
 
@@ -224,5 +226,9 @@ export function* createNewChatWatcher() {
 }
 
 export function* subscibeOnNewChatsWatcher() {
+    // while ( true ) {
+    //     yield take( SET_SUBSCRIBE_ACTIVE, subscribeOnNewChatsWorker )
+
+    // }
     yield takeLatest( SET_SUBSCRIBE_ACTIVE, subscribeOnNewChatsWorker )
 }

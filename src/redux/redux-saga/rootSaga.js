@@ -2,8 +2,8 @@ import { all } from "redux-saga/effects";
 import { saveProfileWatcher } from "./profileSaga";
 import { registrationUserWatcher, authUserWatcher, logoutUserWatcher } from "./authSaga";
 import { getListWatcher } from "./charactersSaga";
-import { messageWatcher } from "./messageSaga";
 import { createNewChatWatcher, getChatsWatcher, subscibeOnNewChatsWatcher } from "./chatsSaga";
+import { getMessagesWatcher, getOldMessagesWatcher, sendMessageWatcher } from "./messagesSaga";
 
 
 
@@ -11,5 +11,10 @@ import { createNewChatWatcher, getChatsWatcher, subscibeOnNewChatsWatcher } from
 
 
 export default function* rootWatcher() {
-    yield all( [messageWatcher(), getListWatcher(), registrationUserWatcher(), authUserWatcher(), logoutUserWatcher(), saveProfileWatcher(), getChatsWatcher(), createNewChatWatcher(), subscibeOnNewChatsWatcher()] )
+    yield all( [
+        sendMessageWatcher(), getListWatcher(), registrationUserWatcher(),
+        authUserWatcher(), logoutUserWatcher(), saveProfileWatcher(),
+        getChatsWatcher(), createNewChatWatcher(), subscibeOnNewChatsWatcher(),
+        getMessagesWatcher(), getOldMessagesWatcher(),
+    ] )
 }

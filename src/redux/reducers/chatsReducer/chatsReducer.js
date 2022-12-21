@@ -22,7 +22,6 @@ export const chatsReducer = ( state = initialState, action ) => {
                 nameNewChat: action.text
             }
         case ADD_CHAT_TO_STORE: {
-            console.log( action );
             return {
                 ...state,
                 chatList: [...action.payload]
@@ -41,12 +40,17 @@ export const chatsReducer = ( state = initialState, action ) => {
             }
         }
         case ADD_NEW_ELEMENT_TO_CHAT: {
-            console.log( action );
-            if ( state.chatList.find( el => el.chatId === action.payload.chatId ) ) return state;
+            // console.log( action );
 
+            if ( state.chatList.find( el => el.chatId === action.payload.chatId ) ) return state;
+            let newElement = {
+                ...action.payload,
+                linkToDialog: state.chatList.length > 0 ? state.chatList[state.chatList.length - 1].linkToDialog + 1 : 0
+            }
+            console.log( newElement );
             return {
                 ...state,
-                chatList: [...state.chatList, action.payload]
+                chatList: [...state.chatList, newElement]
             }
         }
         case REMOVE_CHAT:

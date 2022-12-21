@@ -16,11 +16,10 @@ const Profile = React.lazy( () => import( './components/Profile/Profile' ) )
 const ErrorPage = React.lazy( () => import( './components/ErrorPage/ErrorPage' ) )
 const Authorization = React.lazy( () => import( './components/Authorization/Authorization' ) )
 
-let i = 0;
 function App() {
 
   const isAuth = useSelector( getStatusAuth(), shallowEqual );
-  console.log( `render app ${i++}` )
+
   return ( <div>
     <div className='box'>
 

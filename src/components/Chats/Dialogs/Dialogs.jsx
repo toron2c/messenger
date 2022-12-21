@@ -9,10 +9,7 @@ export default function Dialogs() {
     const dispatch = useDispatch();
     const statusSubscribeOnNewChats = useSelector( state => state.chats.subscribeActived, ( prev, next ) => prev !== next )
     useEffect( () => {
-        if ( !statusSubscribeOnNewChats ) {
-            console.log( `wtf` )
-            dispatch( setSubscribeOnNewChats() );
-        }
+        dispatch( setSubscribeOnNewChats() );
         return () => {
             dispatch( closedSubscribeOnNewChats() );
         }
@@ -22,7 +19,7 @@ export default function Dialogs() {
     const dialogs = useSelector( getDialogs() );
 
 
-    let list = dialogs.map( ( el, idx ) => <DialogItemMemo key={el.chatId} id={idx} name={el.nameDialog} /> )
+    let list = dialogs.map( ( el ) => <DialogItemMemo key={el.chatId} id={el.linkToDialog} name={el.nameDialog} /> )
     return ( <div>
         <List dense>{list}</List>
     </div> )

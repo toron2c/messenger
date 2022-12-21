@@ -1,14 +1,10 @@
-import { INPUT_CHAT, REMOVE_CHAT, SEND_MESSAGE } from "../../types";
+import { ADD_MESSAGES_TO_STORE, ADD_OLD_MESSAGES_TO_STORE, DELETE_DATA_AFTER_LOGOUT, INPUT_CHAT, REMOVE_CHAT, SEND_MESSAGE } from "../../types";
 
 
 
 const initialState = {
     textNewMessage: '',
     messageList: {
-        '1': [],
-        '2': [{ text: 'allalal', author: 'user' }, { text: 'allalal', author: 'user' }, { text: 'allalaasdassssssssssl', author: 'bot' }],
-        '3': [],
-        '4': []
     },
 }
 
@@ -48,6 +44,36 @@ export const messagesReducer = ( state = initialState, action ) => {
                 }
             }
         }
+        case ADD_MESSAGES_TO_STORE: {
+            let el = {
+                link: action.link,
+                page: action.pageMessage,
+                messages: action.messages
+            }
+            return {
+                ...state,
+                messageList: {
+                    ...state.messageList,
+                    [action.uid]: el
+                },
+
+            }
+        }
+        case ADD_OLD_MESSAGES_TO_STORE: {
+            let element = {
+                ...state.messageList[action.uid]
+            }
+            element.page++;
+            element.messages.unshift( ...action.messages );
+            // console.log( state.messageList )
+            return {
+                ...state,
+                messageList: {
+                    ...state.messageList,
+                    [action.uid]: { ...element }
+                }
+            }
+        }
         case REMOVE_CHAT:
             const currentList = state.messageList;
             delete currentList[action.id]
@@ -57,6 +83,12 @@ export const messagesReducer = ( state = initialState, action ) => {
                     ...currentList
                 }
             }
+        case DELETE_DATA_AFTER_LOGOUT: {
+            return {
+                textNewMessage: '',
+                messageList: {},
+            }
+        }
         default:
             return state;
     }
