@@ -45,12 +45,16 @@ export const messagesReducer = ( state = initialState, action ) => {
             }
         }
         case ADD_MESSAGES_TO_STORE: {
+
+            console.log( action );
+            if ( state.messageList[action.uid]?.messages?.length ) return state;
             let el = {
                 link: action.link,
                 page: action.pageMessage,
                 messages: action.messages,
                 subscribe: false
             }
+            console.log( el );
             return {
                 ...state,
                 messageList: {

@@ -8,25 +8,28 @@ import { auth, fs } from './../../services/firebase'
 
 export function* getMessagesFromFirestore( uid, currentPageMessages = 0 ) {
     try {
+        // console.log( `funcion opyat' r/abotaet` )
         let lastVisible, nextQuery;
         let messages = [];
-        const q = query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'Timestamp', 'desc' ), limit( 12 ) );
+        const q = query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'TimestampServer', 'desc' ), limit( 12 ) );
         let querySnapshot = yield getDocs( q );
+
         while ( currentPageMessages > 0 ) {
-            // if ( currentPageMessages > 0 ) {
             lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
             nextQuery = yield query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'Timestamp', 'desc' ), limit( 12 ), startAfter( lastVisible ) )
             querySnapshot = yield getDocs( nextQuery )
-            // }
             currentPageMessages--;
         }
         querySnapshot.forEach( ( doc ) => {
             messages.unshift( { ...doc.data(), idMessage: doc.id } )
         } );
         for ( let message of messages ) {
-            message.Timestamp = new Date( message.Timestamp.seconds * 1000 )
+            message.TimestampServer = new Date( message.TimestampServer.seconds * 1000 )
+            delete message.TimestampUser
             message.author = message.author === auth.currentUser.uid ? 'you' : 'notYou'
+            // console.log( `message from GET ALL MESSAGES->`, message );
         }
+        // console.log( messages );
         return messages;
     } catch ( error ) {
         console.error( `error load messages, please contact to administartion (@toron2c)\nmessage: ${error.message}` )
@@ -133,7 +136,14 @@ function* subscribeOnNewMessagesWorker( { uid } ) {
             if ( yield select( state => state.messages.messageList[uid].subscribe ) ) {
                 if ( message ) {
                     console.log( message );
-                    yield put( addNewMessageToStore( uid, message ) )
+                    let correctMessage = {
+                        TimeStamp: message.TimestampServer ? new Date( message.TimestampServer.seconds * 1000 ) : new Date( message.TimestampUser.seconds * 1000 ),
+                        author: message.author === auth.currentUser.uid ? 'you' : 'notYou',
+                        message: message.message,
+                        idMessage: message.id
+                    }
+                    // console.log( `messages from GET NEW MESSAGE ->`, correctMessage )
+                    yield put( addNewMessageToStore( uid, correctMessage ) )
                 }
                 // console.log( yield select( state => state.messages.messageList[uid] ) )
             } else {
@@ -154,11 +164,8 @@ function getNewChats( uid ) {
         const subscribeOnMessages = onSnapshot( ref, ( doc ) => {
             doc.docChanges().forEach( change => {
                 if ( change.type === 'added' ) {
-
                     element = change.doc.data();
                     id = change.doc.id;
-                    console.log( element );
-
                 }
                 if ( element ) {
                     // console.log( element )
