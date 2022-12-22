@@ -1,4 +1,4 @@
-import { ADD_MESSAGES_TO_STORE, ADD_OLD_MESSAGES_TO_STORE, DELETE_DATA_AFTER_LOGOUT, INPUT_CHAT, REMOVE_CHAT, SEND_MESSAGE } from "../../types";
+import { ADD_MESSAGES_TO_STORE, ADD_NEW_ELEMENT_TO_CHAT, ADD_NEW_MESSAGE_TO_STORE, ADD_OLD_MESSAGES_TO_STORE, DELETE_DATA_AFTER_LOGOUT, INPUT_CHAT, REMOVE_CHAT, SEND_MESSAGE, SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA, UNSUBSCRIBE_ON_NEW_MESSAGES } from "../../types";
 
 
 
@@ -48,7 +48,8 @@ export const messagesReducer = ( state = initialState, action ) => {
             let el = {
                 link: action.link,
                 page: action.pageMessage,
-                messages: action.messages
+                messages: action.messages,
+                subscribe: false
             }
             return {
                 ...state,
@@ -60,19 +61,68 @@ export const messagesReducer = ( state = initialState, action ) => {
             }
         }
         case ADD_OLD_MESSAGES_TO_STORE: {
-            let element = {
-                ...state.messageList[action.uid]
-            }
-            element.page++;
-            element.messages.unshift( ...action.messages );
+            let arr = state.messageList[action.uid].messages;
+            arr.unshift( ...action.messages )
+            // console.log( 'old', state, 'new', state_old );
             // console.log( state.messageList )
             return {
                 ...state,
                 messageList: {
                     ...state.messageList,
-                    [action.uid]: { ...element }
+                    [action.uid]: {
+                        ...state.messageList[action.uid],
+                        page: state.messageList[action.uid].page + 1,
+                        messages: [
+                            ...arr
+                        ]
+                    }
                 }
             }
+        }
+        case SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA: {
+            return {
+                ...state,
+                messageList: {
+                    ...state.messageList,
+                    [action.uid]: {
+                        ...state.messageList[action.uid],
+                        subscribe: true,
+                    }
+                }
+            }
+        }
+        case UNSUBSCRIBE_ON_NEW_MESSAGES: {
+            return {
+                ...state,
+                messageList: {
+                    ...state.messageList,
+                    [action.uid]: {
+                        ...state.messageList[action.uid],
+                        subscribe: false,
+                    }
+                }
+            }
+        }
+        case ADD_NEW_MESSAGE_TO_STORE: {
+            if ( state.messageList[action.uid].messages.find( el => el.idMessage === action.message.idMessage ) ) return state;
+            const newArr = state.messageList[action.uid].messages;
+            newArr.push( action.message );
+            return {
+                ...state,
+                messageList: {
+                    ...state.messageList,
+                    [action.uid]: {
+                        ...state.messageList[action.uid],
+                        messages: [
+                            ...newArr
+                        ]
+                    }
+                }
+            }
+        }
+        case ADD_NEW_ELEMENT_TO_CHAT: {
+            console.log( action );
+            return state;
         }
         case REMOVE_CHAT:
             const currentList = state.messageList;

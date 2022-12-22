@@ -3,6 +3,7 @@ import {
     ADD_CHAT_WITH_SAGA,
     ADD_MESSAGES_TO_STORE,
     ADD_NEW_ELEMENT_TO_CHAT,
+    ADD_NEW_MESSAGE_TO_STORE,
     ADD_OLD_MESSAGES_TO_STORE,
     AUTHORIZATION_USER,
     CHANGE_NAME_CHAT,
@@ -32,8 +33,10 @@ import {
     SET_STATUS_AUTH,
     SET_STATUS_PROFILE,
     SET_SUBSCRIBE_ACTIVE,
+    SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA,
     TOGGLE_NEW_CHAT,
-    TOGGLE_PROFILE_EDIT
+    TOGGLE_PROFILE_EDIT,
+    UNSUBSCRIBE_ON_NEW_MESSAGES
 } from "./types";
 
 
@@ -225,6 +228,37 @@ export function getOldMessagesWithSaga( uid ) {
     }
 }
 /**
+ * function action subscribe on new messages activate with saga
+ * @param {string} uid 
+ * @returns 
+ */
+export function subscribeOnNewMessages( uid ) {
+    return {
+        type: SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA,
+        uid
+    }
+}
+/**
+ * function action unsubscribe on new messages
+ * @param {string} uid 
+ * @returns 
+ */
+export function unsubscribeOnNewMessages( uid ) {
+    return {
+        type: UNSUBSCRIBE_ON_NEW_MESSAGES,
+        uid
+    }
+}
+
+export function addNewMessageToStore( uid, message ) {
+    return {
+        type: ADD_NEW_MESSAGE_TO_STORE,
+        uid,
+        message
+    }
+}
+
+/**
  * function action add old messages to store
  * @param {string} uid 
  * @param {array} messages 
@@ -252,7 +286,7 @@ export function sendMessage( id, author ) {
  * @param {string} uid 
  * @returns type action
  */
-export function sendMessageWithSage( uid ) {
+export function sendMessageWithSaga( uid ) {
     return {
         type: SEND_MESSAGE_WITH_SAGA,
         uid

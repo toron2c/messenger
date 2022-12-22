@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from './MessageInputNewMessage.module.scss'
 
-import { inputChat, sendMessageWithSage } from "../../../../redux/actions";
+import { inputChat, sendMessageWithSaga } from "../../../../redux/actions";
 
 export default function MessagesInputNewMessage( { uid } ) {
 
@@ -18,7 +18,7 @@ export default function MessagesInputNewMessage( { uid } ) {
     }
     const onSendMessage = ( e ) => {
         e.preventDefault();
-        dispatch( sendMessageWithSage( uid ) );
+        dispatch( sendMessageWithSaga( uid ) );
     }
 
 

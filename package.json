@@ -25,7 +25,6 @@
     "redux-saga": "^1.2.1",
     "redux-saga-firebase": "^0.15.0",
     "sort-by": "^1.2.0",
-    "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

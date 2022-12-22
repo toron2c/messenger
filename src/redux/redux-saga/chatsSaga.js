@@ -5,6 +5,7 @@ import { call, delay, put, select, take, takeLatest } from "redux-saga/effects";
 import { auth, fs } from "../../services/firebase";
 import { addChatToStore, addNewElementChat, getMessagesWithSaga } from "../actions";
 import { ADD_CHAT_WITH_SAGA, GET_CHATS_WITH_SAGA, SET_SUBSCRIBE_ACTIVE } from "../types";
+import { getMessagesFromFirestore } from "./messagesSaga";
 
 
 
@@ -179,6 +180,7 @@ function* addDialogWorker( uidAnotherUser ) {
 function* subscribeOnNewChatsWorker() {
     try {
         yield delay( 1000 );
+        console.log( `dialogs subscribe active` )
         const element = yield call( getNewChats );
         while ( yield select( state => state.chats.subscribeActived ) ) {
             const elemChat = yield take( element )
@@ -188,7 +190,9 @@ function* subscribeOnNewChatsWorker() {
                     chatId: elemChat.chatId
                 }
                 if ( correctElement ) {
-                    yield put( addNewElementChat( correctElement ) )
+                    yield put( addNewElementChat( correctElement ) );
+                    let newElemFromStore = yield select( state => state.chats.chatList.find( el => el.chatId === correctElement.chatId ) );
+                    yield put( getMessagesWithSaga( newElemFromStore.chatId, newElemFromStore.linkToDialog ) )
                 }
             } else {
                 element.close();
@@ -226,9 +230,5 @@ export function* createNewChatWatcher() {
 }
 
 export function* subscibeOnNewChatsWatcher() {
-    // while ( true ) {
-    //     yield take( SET_SUBSCRIBE_ACTIVE, subscribeOnNewChatsWorker )
-
-    // }
     yield takeLatest( SET_SUBSCRIBE_ACTIVE, subscribeOnNewChatsWorker )
 }
