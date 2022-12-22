@@ -16,7 +16,7 @@ export function* getMessagesFromFirestore( uid, currentPageMessages = 0 ) {
 
         while ( currentPageMessages > 0 ) {
             lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-            nextQuery = yield query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'Timestamp', 'desc' ), limit( 12 ), startAfter( lastVisible ) )
+            nextQuery = yield query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'TimestampServer', 'desc' ), limit( 12 ), startAfter( lastVisible ) )
             querySnapshot = yield getDocs( nextQuery )
             currentPageMessages--;
         }
@@ -63,9 +63,10 @@ function* getOldMessagesWorker( { uid } ) {
         yield delay( 0 );
         let page = yield select( ( state ) => state.messages.messageList[uid].page );
         let mLength = yield select( state => state.messages.messageList[uid].messages.length );
-        const q = query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'Timestamp', 'desc' ) );
+        const q = query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'TimestampServer', 'desc' ) );
         const countMessages = yield getCountFromServer( q );
         if ( mLength === countMessages.data().count ) {
+            console.log( `idi naxer` )
             return;
         }
         let messages = yield getMessagesFromFirestore( uid, page );
