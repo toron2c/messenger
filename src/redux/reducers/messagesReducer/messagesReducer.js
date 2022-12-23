@@ -1,4 +1,4 @@
-import { ADD_MESSAGES_TO_STORE, ADD_NEW_ELEMENT_TO_CHAT, ADD_NEW_MESSAGE_TO_STORE, ADD_OLD_MESSAGES_TO_STORE, DELETE_DATA_AFTER_LOGOUT, INPUT_CHAT, REMOVE_CHAT, SEND_MESSAGE, SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA, UNSUBSCRIBE_ON_NEW_MESSAGES } from "../../types";
+import { ADD_MESSAGES_TO_STORE, ADD_NEW_ELEMENT_TO_CHAT, ADD_NEW_MESSAGE_TO_STORE, ADD_OLD_MESSAGES_TO_STORE, DELETE_DATA_AFTER_LOGOUT, INPUT_CHAT, REMOVE_CHAT, SEND_MESSAGE, SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA, UNSUBSCRIBE_ON_NEW_MESSAGES, UPDATES_LAST_MESSAGES_IN_STATE } from "../../types";
 
 
 
@@ -45,8 +45,6 @@ export const messagesReducer = ( state = initialState, action ) => {
             }
         }
         case ADD_MESSAGES_TO_STORE: {
-
-            console.log( action );
             if ( state.messageList[action.uid]?.messages?.length ) return state;
             let el = {
                 link: action.link,
@@ -54,7 +52,6 @@ export const messagesReducer = ( state = initialState, action ) => {
                 messages: action.messages,
                 subscribe: false
             }
-            console.log( el );
             return {
                 ...state,
                 messageList: {
@@ -62,6 +59,28 @@ export const messagesReducer = ( state = initialState, action ) => {
                     [action.uid]: el
                 },
 
+            }
+        }
+        case UPDATES_LAST_MESSAGES_IN_STATE: {
+            let tmpArrMessage = state.messageList[action.uid].messages;
+            console.log( action );
+            action.messages.forEach( message => {
+                let idx = tmpArrMessage.findIndex( el => el.idMessage === message.idMessage )
+                if ( idx === -1 ) {
+                    tmpArrMessage.push( message );
+                }
+            } )
+            if ( tmpArrMessage.length === state.messageList[action.uid].messages.length ) return state;
+            tmpArrMessage.sort( ( a, b ) => a.TimestampServer.getTime() - b.TimestampServer.getTime() )
+            return {
+                ...state,
+                messageList: {
+                    ...state.messageList,
+                    [action.uid]: {
+                        ...state.messageList[action.uid],
+                        messages: [...tmpArrMessage]
+                    }
+                }
             }
         }
         case ADD_OLD_MESSAGES_TO_STORE: {

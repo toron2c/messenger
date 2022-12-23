@@ -3,8 +3,7 @@ import { saveProfileWatcher } from "./profileSaga";
 import { registrationUserWatcher, authUserWatcher, logoutUserWatcher } from "./authSaga";
 import { getListWatcher } from "./charactersSaga";
 import { createNewChatWatcher, getChatsWatcher, subscibeOnNewChatsWatcher } from "./chatsSaga";
-import { getMessagesWatcher, getOldMessagesWatcher, sendMessageWatcher, subscribeOnNewMessagesWatcher } from "./messagesSaga";
-import { subscribeOnNewMessages } from "../actions";
+import { getMessagesWatcher, getOldMessagesWatcher, sendMessageWatcher, subscribeOnNewMessagesWatcher, updateLastMessagesWatcher } from "./messagesSaga";
 
 
 
@@ -16,6 +15,7 @@ export default function* rootWatcher() {
         sendMessageWatcher(), getListWatcher(), registrationUserWatcher(),
         authUserWatcher(), logoutUserWatcher(), saveProfileWatcher(),
         getChatsWatcher(), createNewChatWatcher(), subscibeOnNewChatsWatcher(),
-        getMessagesWatcher(), getOldMessagesWatcher(), subscribeOnNewMessagesWatcher()
+        getMessagesWatcher(), getOldMessagesWatcher(), subscribeOnNewMessagesWatcher(),
+        updateLastMessagesWatcher(),
     ] )
 }

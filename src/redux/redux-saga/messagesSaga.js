@@ -1,106 +1,90 @@
 import { addDoc, collection, doc, getCountFromServer, getDocs, limit, onSnapshot, orderBy, query, serverTimestamp, startAfter } from "firebase/firestore";
 import { eventChannel } from "redux-saga";
 import { call, delay, put, select, take, takeEvery, takeLatest } from "redux-saga/effects";
-import { addNewMessageToStore, addOldMessagesToStore, initializeMessagesToStore } from "../actions";
-import { GET_MESSAGES_WITH_SAGA, GET_OLD_MESSAGES_WITH_SAGA, SEND_MESSAGE_WITH_SAGA, SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA } from "../types";
+import { addNewMessageToStore, addOldMessagesToStore, initializeMessagesToStore, updateLastMessageInState } from "../actions";
+import { GET_MESSAGES_WITH_SAGA, GET_OLD_MESSAGES_WITH_SAGA, SEND_MESSAGE_WITH_SAGA, SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA, UPDATE_LAST_MESSAGES_WITH_SAGA } from "../types";
 import { auth, fs } from './../../services/firebase'
 
-
+/**
+ * function gen get messages form firestore
+ * @param {string} uidChat
+ * @param {number} currentPageMessages how many pages to take 
+ * @returns 
+ */
 export function* getMessagesFromFirestore( uid, currentPageMessages = 0 ) {
     try {
-        // console.log( `funcion opyat' r/abotaet` )
+        // define variables for next query
         let lastVisible, nextQuery;
+        // array messages
         let messages = [];
-        const q = query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'TimestampServer', 'desc' ), limit( 12 ) );
+        // first query
+        const q = query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'TimestampServer', 'desc' ), limit( 30 ) );
+        // get first query data
         let querySnapshot = yield getDocs( q );
-
+        // if this is not first query 
         while ( currentPageMessages > 0 ) {
+            // create link on old query
             lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+            // create new query with data after old query
             nextQuery = yield query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'TimestampServer', 'desc' ), limit( 12 ), startAfter( lastVisible ) )
+            // get data 
             querySnapshot = yield getDocs( nextQuery )
+            // minus count passed page
             currentPageMessages--;
         }
+        // get messages
         querySnapshot.forEach( ( doc ) => {
             messages.unshift( { ...doc.data(), idMessage: doc.id } )
         } );
+        // create correct object message
         for ( let message of messages ) {
             message.TimestampServer = new Date( message.TimestampServer.seconds * 1000 )
             delete message.TimestampUser
             message.author = message.author === auth.currentUser.uid ? 'you' : 'notYou'
-            // console.log( `message from GET ALL MESSAGES->`, message );
         }
-        // console.log( messages );
+        // return messages
         return messages;
     } catch ( error ) {
         console.error( `error load messages, please contact to administartion (@toron2c)\nmessage: ${error.message}` )
     }
 }
 
-// get messages initialization
+/**
+ * function gen initializate messages
+ * @param {payload} uidChat, link 
+ */
 function* getMessegesWorker( { uid, link } ) {
     try {
-        yield delay( 0 );
-        // const q = yield query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'Timestamp' ), limit( 12 ) );
+        // get messages from firestore
         const lastMessages = yield getMessagesFromFirestore( uid )
-        // const lastMessages = [];
-        // const querySnapshot = yield getDocs( q );
-        // querySnapshot.forEach( ( doc ) => {
-        // doc.data() is never undefined for query doc snapshots
-        // lastMessages.push( doc.data() )
-        // } );
-        // for ( let message of lastMessages ) {
-        // message.Timestamp = new Date( message.Timestamp.seconds * 1000 )
-        // message.author = message.author === auth.currentUser.uid ? 'you' : 'notYou'
-        // }
+        // put messages to state
         yield put( initializeMessagesToStore( uid, link, lastMessages, 1 ) )
     } catch ( error ) {
         console.error( `error load messages, please contact to administartion (@toron2c)\nmessage: ${error.message}` )
     }
 }
 
+/**
+ * function gen get old messages
+ * @param {*} uidChat
+ * @returns 
+ */
 function* getOldMessagesWorker( { uid } ) {
     try {
-        yield delay( 0 );
+        // get count message pages from state
         let page = yield select( ( state ) => state.messages.messageList[uid].page );
+        // get count messages from state 
         let mLength = yield select( state => state.messages.messageList[uid].messages.length );
+        // get query for chat with count messages
         const q = query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'TimestampServer', 'desc' ) );
         const countMessages = yield getCountFromServer( q );
+        // if count messages is equal return
         if ( mLength === countMessages.data().count ) {
-            console.log( `idi naxer` )
             return;
         }
+        // or get new old messages
         let messages = yield getMessagesFromFirestore( uid, page );
-        // let page = yield select( ( state ) => ( state.messages.messageList[uid].page++ ))
-        //     const q = yield query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'Timestamp' ), limit( 12 ) );
-        //     const lastMessages = [];
-        //     let doces = yield getDocs( q );
-        //     let lastVisible = doces.docs[doces.docs.length - 1]
-        //     const nextPage = yield query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'Timestamp' ), limit( 12 ), startAfter( lastVisible ) );
-        //     doces = yield getDocs( nextPage );
-        //     doces.forEach( ( doc ) => {
-        //         // doc.data() is never undefined for query doc snapshots
-        //         lastMessages.push( doc.data() )
-        //     } );
-        //     for ( let message of lastMessages ) {
-        //         message.Timestamp = new Date( message.Timestamp.seconds * 1000 )
-        //         message.author = message.author === auth.currentUser.uid ? 'you' : 'notYou'
-        //     }
-        //     console.log( lastMessages );
-        //     /*const first = query(collection(db, "cities"), orderBy("population"), limit(25));
-        //         const documentSnapshots = await getDocs(first);
-
-        //         // Get the last visible document
-        //         const lastVisible = documentSnapshots.docs[documentSnapshots.docs.length-1];
-        //         console.log("last", lastVisible);
-
-        //         // Construct a new query starting at this document,
-        //         // get the next 25 cities.
-        //         const next = query(collection(db, "cities"),
-        //         orderBy("population"),
-        //         startAfter(lastVisible),
-        //         limit(25));
-        // */
-        console.log( messages, 'page->', page )
+        // put messages to state
         yield put( addOldMessagesToStore( uid, messages ) )
     } catch ( error ) {
         console.error( `error load messages, please contact to administartion (@toron2c)\nmessage: ${error.message}` )
@@ -111,15 +95,18 @@ function* getOldMessagesWorker( { uid } ) {
 function* sendMessageWorker( { uid } ) {
     try {
         yield delay( 500 );
+        // get text messages
         let messageText = yield select( state => state.messages.textNewMessage );
+        // create correct object message
         let newMessage = {
             message: messageText,
             author: auth.currentUser.uid,
             TimestampUser: new Date()
         }
+        // get ref for a new message
         const refMessage = collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` );
+        // update message with timestampserver
         yield addDoc( refMessage, { ...newMessage, TimestampServer: serverTimestamp() } )
-        // yield updateDoc( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), { timestamp: serverTimestamp() } )
     } catch ( e ) {
         console.error( `error send message. please contact to administration (@toron2c)\nmessage: ${e.message}` )
     }
@@ -128,36 +115,40 @@ function* sendMessageWorker( { uid } ) {
 // subscribe on new messages
 function* subscribeOnNewMessagesWorker( { uid } ) {
     yield delay( 1000 );
-    const dialog = yield call( getNewChats, uid )
+    // call function eventChannel with uid chat
+    const dialog = yield call( getNewMessage, uid )
     try {
-        console.log( `subscribe on chat ${uid} active...` )
+        // while subscirbe actived 
         while ( yield select( state => state.messages.messageList[uid].subscribe ) ) {
             yield delay( 1000 );
+            // take new messages
             const message = yield take( dialog );
+            // check isSubscibe ?
             if ( yield select( state => state.messages.messageList[uid].subscribe ) ) {
+                // if message = true?
                 if ( message ) {
-                    console.log( message );
+                    // create correct message
                     let correctMessage = {
                         TimeStamp: message.TimestampServer ? new Date( message.TimestampServer.seconds * 1000 ) : new Date( message.TimestampUser.seconds * 1000 ),
                         author: message.author === auth.currentUser.uid ? 'you' : 'notYou',
                         message: message.message,
                         idMessage: message.id
                     }
-                    // console.log( `messages from GET NEW MESSAGE ->`, correctMessage )
+                    // put new message to state
                     yield put( addNewMessageToStore( uid, correctMessage ) )
                 }
-                // console.log( yield select( state => state.messages.messageList[uid] ) )
             } else {
+                // if subscribe false, close eventChannel
                 dialog.close()
             }
         }
-        console.log( `subscribe on chat ${uid} unctive...` )
     } catch ( error ) {
         console.error( `error load message! please contact to administration (@toron2c)\n message: ${error.message}` )
     }
 }
 
-function getNewChats( uid ) {
+// function eventChannel get new messages
+function getNewMessage( uid ) {
     return eventChannel( emitter => {
         const ref = query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'TimestampServer' ) )
         let element;
@@ -169,19 +160,29 @@ function getNewChats( uid ) {
                     id = change.doc.id;
                 }
                 if ( element ) {
-                    // console.log( element )
                     emitter( { ...element, id } );
                 }
             } )
 
 
         } )
-        // return unsubscribe function
         return () => {
             subscribeOnMessages();
         }
     }
     )
+}
+
+// update last messages
+function* updateLastMessagesWorker( { uid } ) {
+    try {
+        // get last 30 messages
+        const lastUpdatesMessages = yield getMessagesFromFirestore( uid );
+        // put messages to state
+        yield put( updateLastMessageInState( uid, lastUpdatesMessages ) );
+    } catch ( error ) {
+        console.error( `Error load messages! please contact to administration (@toron2c)!\nMessage:${error.message}` )
+    }
 }
 
 export function* getMessagesWatcher() {
@@ -199,4 +200,8 @@ export function* sendMessageWatcher() {
 
 export function* subscribeOnNewMessagesWatcher() {
     yield takeLatest( SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA, subscribeOnNewMessagesWorker )
+}
+
+export function* updateLastMessagesWatcher() {
+    yield takeLatest( UPDATE_LAST_MESSAGES_WITH_SAGA, updateLastMessagesWorker )
 }

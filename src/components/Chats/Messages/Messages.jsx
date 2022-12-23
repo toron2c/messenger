@@ -5,22 +5,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import MessagesInputNewMessage from './MessagesInputNewMessage/MessagesInputNewMessage';
 import MessageList from './MessageList/MessageList';
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { checkCorrectId } from '../../../redux/reducers/chatsReducer/selectorChats';
-import { getOldMessagesWithSaga } from '../../../redux/actions';
+import { getOldMessagesWithSaga, updateLastMessagesWithSaga } from '../../../redux/actions';
 
 
 export default function Messages() {
     const { id } = useParams();
-    const disaptch = useDispatch();
+    const dispatch = useDispatch();
     const checkId = useMemo( () => checkCorrectId( id ), [id] );
     const isCorrectId = useSelector( checkId );
     const boxMessage = useRef();
 
+    useEffect( () => {
+        if ( isCorrectId ) {
+            dispatch( updateLastMessagesWithSaga( isCorrectId.chatId ) )
+        }
+    }, [isCorrectId, dispatch] )
+
     const onScrollFunction = () => {
         const scroll = Math.abs( boxMessage.current.getBoundingClientRect().top - boxMessage.current.offsetTop )
         if ( scroll < 1 ) {
-            disaptch( getOldMessagesWithSaga( isCorrectId.chatId ) )
+            dispatch( getOldMessagesWithSaga( isCorrectId.chatId ) )
         }
     }
     return ( <>

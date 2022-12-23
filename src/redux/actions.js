@@ -36,7 +36,9 @@ import {
     SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA,
     TOGGLE_NEW_CHAT,
     TOGGLE_PROFILE_EDIT,
-    UNSUBSCRIBE_ON_NEW_MESSAGES
+    UNSUBSCRIBE_ON_NEW_MESSAGES,
+    UPDATES_LAST_MESSAGES_IN_STATE,
+    UPDATE_LAST_MESSAGES_WITH_SAGA
 } from "./types";
 
 
@@ -216,6 +218,27 @@ export function initializeMessagesToStore( uid, link, messages, pageMessage ) {
         pageMessage
     }
 }
+/**
+ * function action update last messages with saga
+ * @param {string} uid chat
+ * @param {number} link to dialog 
+ * @returns 
+ */
+export function updateLastMessagesWithSaga( uid ) {
+    return {
+        type: UPDATE_LAST_MESSAGES_WITH_SAGA,
+        uid
+    }
+}
+
+export function updateLastMessageInState( uid, messages ) {
+    return {
+        type: UPDATES_LAST_MESSAGES_IN_STATE,
+        uid,
+        messages
+    }
+}
+
 /**
  * function action get old messages with saga
  * @param {string} uid chat 
