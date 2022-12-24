@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleNewChatInput } from "../../../redux/actions";
 import { getStatusFieldInput } from "../../../redux/reducers/chatsReducer/selectorChats";
 import InputNewChat from "./InputNewChat";
-
+import style from '../../Authorization/Authorization.module.scss'
 
 
 export default function DialogsNewChat() {
@@ -17,8 +17,12 @@ export default function DialogsNewChat() {
         dispatch( toggleNewChatInput() )
     }
     return ( <>
-        {!inputNewDialog ? <Button onClick={setInputVisible} variant="contained">Add chat</Button> :
+        {!inputNewDialog ? <div className={style.buttonAddChat}><Button onClick={setInputVisible} variant="contained">Add chat</Button> </div> :
             <InputNewChat />
         }
+        <div className={style.nativeAd}>
+            <p>native advertising</p>
+            <p>pojalusta voz'mite na rabotu!11!11!</p>
+        </div>
     </> )
 }

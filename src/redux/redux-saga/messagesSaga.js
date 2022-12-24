@@ -1,7 +1,7 @@
 import { addDoc, collection, doc, getCountFromServer, getDocs, limit, onSnapshot, orderBy, query, serverTimestamp, startAfter } from "firebase/firestore";
 import { eventChannel } from "redux-saga";
-import { call, delay, put, select, take, takeEvery, takeLatest } from "redux-saga/effects";
-import { addNewMessageToStore, addOldMessagesToStore, initializeMessagesToStore, updateLastMessageInState } from "../actions";
+import { all, call, delay, put, select, take, takeEvery, takeLatest } from "redux-saga/effects";
+import { addNewMessageToStore, addOldMessagesToStore, initializeMessagesToStore, sendMessage, updateLastMessageInState } from "../actions";
 import { GET_MESSAGES_WITH_SAGA, GET_OLD_MESSAGES_WITH_SAGA, SEND_MESSAGE_WITH_SAGA, SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA, UPDATE_LAST_MESSAGES_WITH_SAGA } from "../types";
 import { auth, fs } from './../../services/firebase'
 
@@ -42,7 +42,7 @@ export function* getMessagesFromFirestore( uid, currentPageMessages = 0 ) {
             delete message.TimestampUser
             message.author = message.author === auth.currentUser.uid ? 'you' : 'notYou'
         }
-        // return messages
+        // return array messages
         return messages;
     } catch ( error ) {
         console.error( `error load messages, please contact to administartion (@toron2c)\nmessage: ${error.message}` )
@@ -56,9 +56,9 @@ export function* getMessagesFromFirestore( uid, currentPageMessages = 0 ) {
 function* getMessegesWorker( { uid, link } ) {
     try {
         // get messages from firestore
-        const lastMessages = yield getMessagesFromFirestore( uid )
+        const lastMessages = yield call( getMessagesFromFirestore, uid );
         // put messages to state
-        yield put( initializeMessagesToStore( uid, link, lastMessages, 1 ) )
+        yield put( initializeMessagesToStore( uid, link, lastMessages, 1 ) );
     } catch ( error ) {
         console.error( `error load messages, please contact to administartion (@toron2c)\nmessage: ${error.message}` )
     }
@@ -83,7 +83,7 @@ function* getOldMessagesWorker( { uid } ) {
             return;
         }
         // or get new old messages
-        let messages = yield getMessagesFromFirestore( uid, page );
+        let messages = yield call( getMessagesFromFirestore, uid, page );
         // put messages to state
         yield put( addOldMessagesToStore( uid, messages ) )
     } catch ( error ) {
@@ -94,7 +94,6 @@ function* getOldMessagesWorker( { uid } ) {
 // send message
 function* sendMessageWorker( { uid } ) {
     try {
-        yield delay( 500 );
         // get text messages
         let messageText = yield select( state => state.messages.textNewMessage );
         // create correct object message
@@ -103,10 +102,12 @@ function* sendMessageWorker( { uid } ) {
             author: auth.currentUser.uid,
             TimestampUser: new Date()
         }
+        yield put( sendMessage() )
         // get ref for a new message
         const refMessage = collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` );
         // update message with timestampserver
         yield addDoc( refMessage, { ...newMessage, TimestampServer: serverTimestamp() } )
+        yield
     } catch ( e ) {
         console.error( `error send message. please contact to administration (@toron2c)\nmessage: ${e.message}` )
     }
@@ -147,7 +148,11 @@ function* subscribeOnNewMessagesWorker( { uid } ) {
     }
 }
 
-// function eventChannel get new messages
+/**
+ * function eventChannel get new messages
+ * @param {string} uid 
+ * @returns 
+ */
 function getNewMessage( uid ) {
     return eventChannel( emitter => {
         const ref = query( collection( doc( collection( fs, 'dialogs' ), uid ), `${uid}_messages` ), orderBy( 'TimestampServer' ) )
@@ -177,7 +182,7 @@ function getNewMessage( uid ) {
 function* updateLastMessagesWorker( { uid } ) {
     try {
         // get last 30 messages
-        const lastUpdatesMessages = yield getMessagesFromFirestore( uid );
+        const lastUpdatesMessages = yield call( getMessagesFromFirestore, uid );
         // put messages to state
         yield put( updateLastMessageInState( uid, lastUpdatesMessages ) );
     } catch ( error ) {
@@ -185,23 +190,26 @@ function* updateLastMessagesWorker( { uid } ) {
     }
 }
 
-export function* getMessagesWatcher() {
+function* getMessagesWatcher() {
     yield takeEvery( GET_MESSAGES_WITH_SAGA, getMessegesWorker )
 }
 
-export function* getOldMessagesWatcher() {
+function* getOldMessagesWatcher() {
     yield takeEvery( GET_OLD_MESSAGES_WITH_SAGA, getOldMessagesWorker )
 }
 
-
-export function* sendMessageWatcher() {
+function* sendMessageWatcher() {
     yield takeEvery( SEND_MESSAGE_WITH_SAGA, sendMessageWorker )
 }
 
-export function* subscribeOnNewMessagesWatcher() {
+function* subscribeOnNewMessagesWatcher() {
     yield takeLatest( SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA, subscribeOnNewMessagesWorker )
 }
 
-export function* updateLastMessagesWatcher() {
+function* updateLastMessagesWatcher() {
     yield takeLatest( UPDATE_LAST_MESSAGES_WITH_SAGA, updateLastMessagesWorker )
+}
+
+export function* rootMessagesSaga() {
+    yield all( [getMessagesWatcher(), getOldMessagesWatcher(), sendMessageWatcher(), subscribeOnNewMessagesWatcher(), updateLastMessagesWatcher()] )
 }

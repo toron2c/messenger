@@ -1,9 +1,9 @@
 import { updateProfile } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { put, select, takeLatest } from "redux-saga/effects";
 import { auth, fs } from "../../services/firebase";
-import { setToggleProfileEdit } from "../actions";
+import { setErrorSaveProfile, setToggleProfileEdit } from "../actions";
 import { SAVE_PROFILE_WITH_SAGA } from "../types";
 
 
@@ -26,10 +26,12 @@ function* saveProfileWorker() {
             displayName: profile.name
         }, )
 
-        yield put( setToggleProfileEdit() )
+        yield put( setToggleProfileEdit() );
 
     } catch ( error ) {
-        console.error( `Error save data, please contact to administration (@toron2c)\n ${error.message}` )
+        let msg = `Error save data, please contact to administration (@toron2c)! Message:${error.message}`
+        console.error( msg );
+        yield put( setErrorSaveProfile( msg ) )
     }
 }
 

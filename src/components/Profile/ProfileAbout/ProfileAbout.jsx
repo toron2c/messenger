@@ -5,13 +5,11 @@ import { ProfileAboutInfo } from './ProfileAboutInfo/ProfileAboutInfo';
 import { ProfileAboutName } from './ProfileAboutName/ProfileAboutName';
 import { ProfileAboutStatus } from './ProfileAboutStatus/ProfileAboutStatus';
 
-let i = 0;
 export const ProfileAboutContainer = () => {
     const email = useSelector( getUserEmail(), shallowEqual );
     const name = useSelector( getUserName(), shallowEqual );
     const status = useSelector( getUserStatus(), shallowEqual );
     const about = useSelector( getUserAbout(), shallowEqual );
-    console.log( `render PROFILE ABOUT ${i++}` );
     return (
         <>
             <ProfileAboutEmail email={email} />

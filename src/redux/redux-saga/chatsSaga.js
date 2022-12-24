@@ -1,16 +1,12 @@
 import { query } from "firebase/database";
 import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, onSnapshot, setDoc, updateDoc, where } from "firebase/firestore";
 import { eventChannel } from "redux-saga";
-import { call, delay, put, select, take, takeLatest } from "redux-saga/effects";
+import { all, call, delay, put, select, take, takeLatest } from "redux-saga/effects";
 import { auth, fs } from "../../services/firebase";
-import { addChatToStore, addNewElementChat, getMessagesWithSaga } from "../actions";
+import { addChatToStore, addNewElementChat, getMessagesWithSaga, setAddedChatError } from "../actions";
 import { ADD_CHAT_WITH_SAGA, GET_CHATS_WITH_SAGA, SET_SUBSCRIBE_ACTIVE } from "../types";
-import { getMessagesFromFirestore } from "./messagesSaga";
 
-
-
-
-/// *** get chats logic ***
+/// =====*** get chats logic ***
 /**
  * function worker get chat's list
  */
@@ -47,7 +43,7 @@ function* getChatsWorker() {
 }
 /**
  * function worker get username chat
- * @param {*} uid user uid
+ * @param {string} uid user uid
  * @returns returns name user,or if user without name, returns email
  */
 function* getNameForChatWorker( uid ) {
@@ -77,11 +73,11 @@ function* addChatWorker() {
     try {
         yield delay( 500 );
         let email = yield select( state => state.chats.nameNewChat )
-        let user = yield checkUserWorker( email );
+        let user = yield call( checkUserWorker, email );
         if ( user ) {
-            let isTheredialog = yield checkDialogsWorker( user );
+            let isTheredialog = yield call( checkDialogsWorker, user );
             if ( !isTheredialog ) {
-                yield addDialogWorker( user );
+                yield call( addDialogWorker, user );
             } else {
                 throw new Error( 'sorry, but there is already a dialog with the current user' )
             }
@@ -89,12 +85,14 @@ function* addChatWorker() {
             throw new Error( `sorry, but user with this email ${email} not found` )
         }
     } catch ( error ) {
-        console.error( `error load data. please contact to administration (@toron2c)\n message: ${error.message}` );
+        let msg = `error load data. please contact to administration (@toron2c)\n message: ${error.message}`;
+        console.error( msg );
+        yield put( setAddedChatError( msg ) );
     }
 }
 /**
- * function worker, search the user
- * @param {*} userEmail - user email
+ * function worker, search the user for email
+ * @param {string} userEmail - user email
  * @returns boolean: if user finded, return uid, otherwise null
  */
 function* checkUserWorker( userEmail ) {
@@ -116,7 +114,7 @@ function* checkUserWorker( userEmail ) {
 }
 /**
  * function worker check avaible dialog with entered email
- * @param {*} uid user uid
+ * @param {string} uid user uid
  * @returns  boolean: if dialog finded, return true, otherwise false
  */
 function* checkDialogsWorker( uid ) {
@@ -144,6 +142,7 @@ function* checkDialogsWorker( uid ) {
 
 /**
  * function worker add doc to dialogs and add doc to chats
+ * @param {string} uidAnotherUser 
  */
 function* addDialogWorker( uidAnotherUser ) {
     try {
@@ -156,15 +155,14 @@ function* addDialogWorker( uidAnotherUser ) {
         // create new doc for messages data
         const refMessages = yield addDoc( collection( fs, 'dialogs' ), {
         } );
-
+        // update doc, added field uid chat
         yield updateDoc( doc( fs, 'dialogs', refMessages.id ), {
             uidChat: refMessages.id,
         } )
+        // create subcollection with messages
         let b = yield collection( refMessages, `${refMessages.id}_messages` );
         yield setDoc( doc( b ), {} )
-        // yield updateDoc( doc( fs, 'dialogs', refMessages.id, collection( 'messages' ) ) )S
-        // yield addDoc( fs, 'dialogs', refMessages.id, 'messages' )
-        // update currentUser add new dialog
+        // added dialog info to current user 
         yield updateDoc( doc( fs, 'users', auth.currentUser.uid ), {
             dialogs: arrayUnion( { chatId: refMessages.id, emailAnotherUser: user.email, uidAnotherUser: user.uid, anotherName: user.displayName } )
         }, )
@@ -177,10 +175,10 @@ function* addDialogWorker( uidAnotherUser ) {
     }
 }
 
+// function gen subscribe on new chats
 function* subscribeOnNewChatsWorker() {
     try {
         yield delay( 1000 );
-        console.log( `dialogs subscribe active` )
         const element = yield call( getNewChats );
         while ( yield select( state => state.chats.subscribeActived ) ) {
             const elemChat = yield take( element )
@@ -214,7 +212,6 @@ function getNewChats() {
                 emitter( element );
             }
         } )
-        // return unsubscribe function
         return () => {
             subscribeOnChats();
         }
@@ -222,13 +219,17 @@ function getNewChats() {
     )
 }
 
-export function* getChatsWatcher() {
+function* getChatsWatcher() {
     yield takeLatest( GET_CHATS_WITH_SAGA, getChatsWorker )
 }
-export function* createNewChatWatcher() {
+function* createNewChatWatcher() {
     yield takeLatest( ADD_CHAT_WITH_SAGA, addChatWorker )
 }
 
-export function* subscibeOnNewChatsWatcher() {
+function* subscibeOnNewChatsWatcher() {
     yield takeLatest( SET_SUBSCRIBE_ACTIVE, subscribeOnNewChatsWorker )
+}
+
+export function* rootChatSaga() {
+    yield all( [getChatsWatcher(), createNewChatWatcher(), subscibeOnNewChatsWatcher()] )
 }

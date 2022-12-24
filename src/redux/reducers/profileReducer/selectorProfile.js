@@ -17,3 +17,11 @@ export function getUserAbout() {
 export function getStatusToggleEditProfile() {
     return ( state ) => state.profile.isEditProfile
 }
+
+export function getStatusErrorSaveProfile() {
+    return ( state ) => state.profile.error.isError
+}
+
+export function getErrorMessageSaveProfile() {
+    return ( state ) => state.profile.error.msg
+}

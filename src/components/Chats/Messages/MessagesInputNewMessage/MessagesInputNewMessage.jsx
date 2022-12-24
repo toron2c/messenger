@@ -1,6 +1,5 @@
 import { Button, TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
-import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from './MessageInputNewMessage.module.scss'
 
@@ -8,7 +7,6 @@ import { inputChat, sendMessageWithSaga } from "../../../../redux/actions";
 
 export default function MessagesInputNewMessage( { uid } ) {
 
-    const inputRef = useRef();
     const dispatch = useDispatch();
     const textMessage = useSelector( state => state.messages.textNewMessage );
 
@@ -18,7 +16,10 @@ export default function MessagesInputNewMessage( { uid } ) {
     }
     const onSendMessage = ( e ) => {
         e.preventDefault();
-        dispatch( sendMessageWithSaga( uid ) );
+        if ( textMessage !== '' ) {
+            dispatch( sendMessageWithSaga( uid ) );
+            document.getElementById( 'inputRef' ).focus();
+        }
     }
 
 
@@ -27,7 +28,8 @@ export default function MessagesInputNewMessage( { uid } ) {
             <TextField
                 className={style.inputMessageArea}
                 fullWidth
-                ref={inputRef}
+                autoFocus
+                id={'inputRef'}
                 value={textMessage}
                 onChange={onChangeInput}
                 multiline

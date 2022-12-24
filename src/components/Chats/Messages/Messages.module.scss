@@ -36,13 +36,7 @@
         background-color: #fff;
         border-radius: 20px;       
         }
-        .user {
-            justify-self: end; 
-        }
         
-        .bot {
-            justify-self: start;
-        }
     }
     .input {
         margin-top: 4px;
@@ -64,4 +58,15 @@
     }
   }
 
+  .user {
+    margin:5px 0 5px;
+    justify-self: end;
+}
+
+.bot {
+    justify-self: start;
+}
+.date {
+    justify-self: center;
+}
 

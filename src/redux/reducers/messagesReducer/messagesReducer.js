@@ -1,4 +1,15 @@
-import { ADD_MESSAGES_TO_STORE, ADD_NEW_ELEMENT_TO_CHAT, ADD_NEW_MESSAGE_TO_STORE, ADD_OLD_MESSAGES_TO_STORE, DELETE_DATA_AFTER_LOGOUT, INPUT_CHAT, REMOVE_CHAT, SEND_MESSAGE, SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA, UNSUBSCRIBE_ON_NEW_MESSAGES, UPDATES_LAST_MESSAGES_IN_STATE } from "../../types";
+import {
+    ADD_MESSAGES_TO_STORE,
+    ADD_NEW_MESSAGE_TO_STORE,
+    ADD_OLD_MESSAGES_TO_STORE,
+    DELETE_DATA_AFTER_LOGOUT,
+    INPUT_CHAT,
+    SEND_MESSAGE,
+    // REMOVE_CHAT, unactive
+    SUBSCRIBE_ON_NEW_MESSAGES_WITH_SAGA,
+    UNSUBSCRIBE_ON_NEW_MESSAGES,
+    UPDATES_LAST_MESSAGES_IN_STATE
+} from "../../types";
 
 
 
@@ -16,32 +27,9 @@ export const messagesReducer = ( state = initialState, action ) => {
                 textNewMessage: action.text
             }
         case SEND_MESSAGE: {
-            if ( action.author === 'user' ) {
-                const currentList = state.messageList[action.id] || [];
-                const message = state.textNewMessage;
-                return {
-                    ...state,
-                    textNewMessage: '',
-                    messageList: {
-                        ...state.messageList,
-                        [action.id]: [
-                            ...currentList,
-                            { text: message, author: action.author }
-                        ]
-                    }
-                }
-            } else {
-                const currentList = state.messageList[action.id];
-                return {
-                    ...state,
-                    messageList: {
-                        ...state.messageList,
-                        [action.id]: [
-                            ...currentList,
-                            { text: `Я всего лишь бот, который умеет писать только это сообщение :'(`, author: action.author }
-                        ]
-                    }
-                }
+            return {
+                ...state,
+                textNewMessage: ''
             }
         }
         case ADD_MESSAGES_TO_STORE: {
@@ -63,7 +51,6 @@ export const messagesReducer = ( state = initialState, action ) => {
         }
         case UPDATES_LAST_MESSAGES_IN_STATE: {
             let tmpArrMessage = state.messageList[action.uid].messages;
-            console.log( action );
             action.messages.forEach( message => {
                 let idx = tmpArrMessage.findIndex( el => el.idMessage === message.idMessage )
                 if ( idx === -1 ) {
@@ -86,8 +73,6 @@ export const messagesReducer = ( state = initialState, action ) => {
         case ADD_OLD_MESSAGES_TO_STORE: {
             let arr = state.messageList[action.uid].messages;
             arr.unshift( ...action.messages )
-            // console.log( 'old', state, 'new', state_old );
-            // console.log( state.messageList )
             return {
                 ...state,
                 messageList: {
@@ -143,19 +128,18 @@ export const messagesReducer = ( state = initialState, action ) => {
                 }
             }
         }
-        case ADD_NEW_ELEMENT_TO_CHAT: {
-            console.log( action );
-            return state;
-        }
-        case REMOVE_CHAT:
-            const currentList = state.messageList;
-            delete currentList[action.id]
-            return {
-                ...state,
-                messageList: {
-                    ...currentList
-                }
-            }
+        /*
+        ====unactive====
+         case REMOVE_CHAT:
+             const currentList = state.messageList;
+             delete currentList[action.id]
+             return {
+                 ...state,
+                 messageList: {
+                     ...currentList
+                 }
+             } */
+
         case DELETE_DATA_AFTER_LOGOUT: {
             return {
                 textNewMessage: '',

@@ -23,10 +23,12 @@ import {
     SEND_MESSAGE,
     SEND_MESSAGE_WITH_SAGA,
     SET_ABOUT_PROFILE,
+    SET_ADDED_CHAT_ERROR,
     SET_CLOSED_SUBSCRIBE,
     SET_EMAIL,
     SET_ERROR,
     SET_ERROR_AUTH,
+    SET_ERROR_SAVE_PROFILE_DATA,
     SET_LIST,
     SET_NAME_PROFILE,
     SET_PASSWORD,
@@ -99,6 +101,17 @@ export function saveProfileWithSaga() {
     return { type: SAVE_PROFILE_WITH_SAGA }
 }
 
+/**
+ * function action setError save profile data
+ * @param {string} msg 
+ * @returns 
+ */
+export function setErrorSaveProfile( msg ) {
+    return {
+        type: SET_ERROR_SAVE_PROFILE_DATA,
+        msg
+    }
+}
 
 // *** CHATS ***
 /**
@@ -168,6 +181,17 @@ export function changeNameNewChat( value ) {
 export function addNewChat() {
     return {
         type: ADD_CHAT_WITH_SAGA
+    }
+}
+/**
+ * function action set error added chat
+ * @param {string} msg 
+ * @returns 
+ */
+export function setAddedChatError( msg ) {
+    return {
+        type: SET_ADDED_CHAT_ERROR,
+        msg
     }
 }
 
@@ -296,14 +320,6 @@ export function addOldMessagesToStore( uid, messages ) {
 }
 
 
-export function sendMessage( id, author ) {
-    return {
-        type: SEND_MESSAGE,
-        id: id,
-        author: author
-    }
-}
-
 /**
  * function action send message with sage
  * @param {string} uid 
@@ -313,6 +329,12 @@ export function sendMessageWithSaga( uid ) {
     return {
         type: SEND_MESSAGE_WITH_SAGA,
         uid
+    }
+}
+
+export function sendMessage() {
+    return {
+        type: SEND_MESSAGE
     }
 }
 

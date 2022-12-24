@@ -1,23 +1,21 @@
 import { Button } from '@mui/material'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearFields, registrationUserWithSaga, setErrorAuth } from '../../../redux/actions'
+import { clearFields, registrationUserWithSaga } from '../../../redux/actions'
 import { AuthFields } from '../AuthFields/AuthFields'
 import style from './Registration.module.scss'
 
-let i = 0;
 
 export const Registration = () => {
 
     const dispatch = useDispatch();
     const message = useSelector( state => state.auth.error.message );
-    console.log( `render registration ${++i}` )
 
     useEffect( () => {
         if ( message ) {
             dispatch( clearFields() )
         }
-    }, [] )
+    }, [message, dispatch] )
 
 
     const onSubmitHandlerRegistration = ( e ) => {

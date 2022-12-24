@@ -12,6 +12,7 @@ import { getStatusAuth } from './redux/reducers/authReducer/selectorAuth';
 
 const Characters = React.lazy( () => import( './components/CharactersPage/Characters' ) );
 const Chats = React.lazy( () => import( './components/Chats/Chats' ) )
+const ChatsMobile = React.lazy( () => import( './components/Chats/ChatsMobile/ChatsMobile' ) )
 const Profile = React.lazy( () => import( './components/Profile/Profile' ) )
 const ErrorPage = React.lazy( () => import( './components/ErrorPage/ErrorPage' ) )
 const Authorization = React.lazy( () => import( './components/Authorization/Authorization' ) )
@@ -19,7 +20,8 @@ const Authorization = React.lazy( () => import( './components/Authorization/Auth
 function App() {
 
   const isAuth = useSelector( getStatusAuth(), shallowEqual );
-
+  const windowInnerWidth = window.innerWidth;
+  console.log( windowInnerWidth );
   return ( <div>
     <div className='box'>
 
@@ -47,13 +49,26 @@ function App() {
               </PrivateRouter>
             </Suspense>
           } />
-          <Route path={'chats/'} element={
-            <Suspense><PrivateRouter auth={isAuth}>
-              <Chats />
-            </PrivateRouter></Suspense>
-          }>
-            <Route path={':id'} element={<Suspense><Chats /></Suspense>} />
-          </Route>
+          {
+            windowInnerWidth > 600 ?
+              <Route path={'chats/'} element={
+                <Suspense>
+                  <PrivateRouter auth={isAuth}>
+                    <Chats />
+                  </PrivateRouter>
+                </Suspense>
+              }>
+                <Route path={':id'} element={<Suspense><Chats /></Suspense>} />
+              </Route> :
+              <Route path={'/chats'} element={
+                <Suspense>
+                  <PrivateRouter auth={isAuth}>
+                    <ChatsMobile />
+                  </PrivateRouter>
+                </Suspense>}>
+              </Route>
+          }
+
           {/* 
           <Route path={'chats/'} element={<Chats />} >
             <Route path={':id'} element={<Chats />} />
@@ -63,7 +78,7 @@ function App() {
         </Route>
       </Routes>
     </div>
-  </div>
+  </div >
   )
 }
 

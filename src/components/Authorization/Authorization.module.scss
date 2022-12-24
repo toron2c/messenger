@@ -23,3 +23,21 @@
         color: #1565c0;
     }
 }
+
+.nativeAd {
+    border: 2px solid rgba(204, 204, 204, 0.356);
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(204, 204, 204, 0.356);
+    padding: 15px 34px;
+    border-radius: 7px;
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+.buttonAddChat {
+    @media (max-width:600px) {
+        padding: 10px;
+        
+    }
+}

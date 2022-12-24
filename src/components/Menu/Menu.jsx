@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { logoutAuthWithSaga } from '../../redux/actions'
+
 import style from './Menu.module.scss'
 
 
@@ -37,8 +38,8 @@ export default function Menu( { isAuth } ) {
                 </ul>
             </nav>
             {isAuth ?
-                <Link className={style.authButton} onClick={onClickLogout}>LOGOUT</Link>
-                : <Link className={style.authButton} to='/login'>Sign In</Link>}
+                <Link className={style.authButton} onClick={onClickLogout}>logout</Link>
+                : <Link className={style.authButton} to='/login'>login</Link>}
         </header>
         <main className={style.main}>
             <Outlet />

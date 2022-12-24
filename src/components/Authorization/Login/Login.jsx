@@ -5,12 +5,9 @@ import { authUserWithSaga, clearFields } from "../../../redux/actions";
 import { AuthFields } from "../AuthFields/AuthFields";
 import style from './Login.module.scss'
 
-let i = 0;
 
 export default function Login() {
     const dispatch = useDispatch();
-
-    console.log( `render login ${i++}` );
 
     const message = useSelector( state => state.auth.error.message, shallowEqual );
 
@@ -18,7 +15,7 @@ export default function Login() {
 
         dispatch( clearFields() )
 
-    }, [] )
+    }, [dispatch] )
 
     const onSubmitHandlerAuth = ( e ) => {
         e.preventDefault();

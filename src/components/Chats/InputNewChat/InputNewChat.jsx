@@ -1,12 +1,15 @@
-import { addNewChat, changeNameNewChat } from "../../../redux/actions";
+import { addNewChat, changeNameNewChat, toggleNewChatInput } from "../../../redux/actions";
 import { Button, TextField } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import style from './InputNewChat.module.scss'
+import { getErrorMessageChats, getStatusErrorChats } from "../../../redux/reducers/chatsReducer/selectorChats";
 
 export default function InputNewChat() {
     const dispatch = useDispatch();
 
     const newNameChat = useSelector( state => state.chats.nameNewChat );
+    const isError = useSelector( getStatusErrorChats(), shallowEqual );
+    const errorMessage = useSelector( getErrorMessageChats(), shallowEqual );
     const onChangeInputNewChat = ( e ) => {
         e.preventDefault();
         dispatch( changeNameNewChat( e.target.value ) );
@@ -16,13 +19,18 @@ export default function InputNewChat() {
         e.preventDefault();
         if ( newNameChat ) {
             dispatch( addNewChat() );
+        } else {
+            dispatch( toggleNewChatInput() )
         }
     }
 
 
     return (
         <form>
+
             <TextField type='email' required onChange={onChangeInputNewChat} value={newNameChat} label="Name chat" variant="outlined" />
-            <div className={style.newChatButton}><Button type="submit" onClick={addNewChatHandler} variant="contained">Create</Button></div>
+            <div className={style.newChatButton}>
+                {isError && <div className={style.error}>{errorMessage}</div>}
+                <Button type="submit" onClick={addNewChatHandler} variant="contained">Create</Button></div>
         </form> )
 }

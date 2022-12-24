@@ -1,4 +1,12 @@
-import { DELETE_DATA_AFTER_LOGOUT, INITIALIZE_PROFILE, SET_ABOUT_PROFILE, SET_NAME_PROFILE, SET_STATUS_PROFILE, TOGGLE_PROFILE_EDIT } from "../../types"
+import {
+    DELETE_DATA_AFTER_LOGOUT,
+    INITIALIZE_PROFILE,
+    SET_ABOUT_PROFILE,
+    SET_ERROR_SAVE_PROFILE_DATA,
+    SET_NAME_PROFILE,
+    SET_STATUS_PROFILE,
+    TOGGLE_PROFILE_EDIT
+} from "../../types"
 
 
 
@@ -10,7 +18,11 @@ const initialState = {
         status: '',
         about: ''
     },
-    isEditProfile: false
+    isEditProfile: false,
+    error: {
+        isError: false,
+        msg: ''
+    }
 }
 
 export const profileReducer = ( state = initialState, action ) => {
@@ -24,7 +36,11 @@ export const profileReducer = ( state = initialState, action ) => {
         case TOGGLE_PROFILE_EDIT:
             return {
                 ...state,
-                isEditProfile: !state.isEditProfile
+                isEditProfile: !state.isEditProfile,
+                error: {
+                    isError: false,
+                    msg: ''
+                }
             }
         case SET_NAME_PROFILE:
             return {
@@ -47,6 +63,16 @@ export const profileReducer = ( state = initialState, action ) => {
                     about: action.value
                 }
             }
+        case SET_ERROR_SAVE_PROFILE_DATA: {
+            return {
+                ...state,
+                isEditProfile: false,
+                error: {
+                    isError: true,
+                    msg: action.msg
+                }
+            }
+        }
         case DELETE_DATA_AFTER_LOGOUT: {
             return {
                 email: '',
@@ -56,7 +82,11 @@ export const profileReducer = ( state = initialState, action ) => {
                     status: '',
                     about: ''
                 },
-                isEditProfile: false
+                isEditProfile: false,
+                error: {
+                    isError: false,
+                    msg: ''
+                }
             }
         }
         default:
