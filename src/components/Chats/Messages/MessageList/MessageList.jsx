@@ -10,9 +10,10 @@ import { subscribeOnNewMessages, unsubscribeOnNewMessages } from "../../../../re
  * 
  */
 
-
+let i = 0;
 export default function MessageList( { uid } ) {
-    const messages = useSelector( getMessageList( uid ), ( prev, next ) => ( prev.length !== next.length ) );
+    console.log( `render messageList ${++i}` )
+    const messages = useSelector( getMessageList( uid ) );
     const dispatch = useDispatch();
     let startDate;
     useEffect( () => {
