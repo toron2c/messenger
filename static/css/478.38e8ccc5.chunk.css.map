@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/478.38e8ccc5.chunk.css","mappings":"AAAA,4BAEI,wBAAoC,CACpC,UAAW,CAFX,WAAY,CAGf,wBAAyB","sources":["components/ErrorPage/ErrorPage.module.scss"],"sourcesContent":[".ErrorPage {\r\n    height: 100%;\r\n    background-color: rgb(140, 184, 224);\r\n    color: #fff;\r\n\ttext-transform: uppercase;\r\n}\r\n\r\n\r\n"],"names":[],"sourceRoot":""}
