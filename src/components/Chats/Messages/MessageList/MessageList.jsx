@@ -10,9 +10,7 @@ import { subscribeOnNewMessages, unsubscribeOnNewMessages } from "../../../../re
  * 
  */
 
-let i = 0;
 export default function MessageList( { uid } ) {
-    console.log( `render messageList ${++i}` )
     const messages = useSelector( getMessageList( uid ) );
     const dispatch = useDispatch();
     let startDate;

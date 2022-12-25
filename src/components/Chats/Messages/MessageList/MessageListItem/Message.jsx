@@ -1,10 +1,8 @@
 import { useEffect } from 'react'
 import style from './message.module.scss'
 
-let i = 0;
 
 export function Message( { el } ) {
-    console.log( `render message ${el.message} ${++i}` )
     let time = new Date( el.TimestampServer ? el.TimestampServer : new Date() );
     useEffect( () => {
         let el = document.getElementById( 'lastElement' ); el.scrollIntoView( { behavior: 'smooth' } );
