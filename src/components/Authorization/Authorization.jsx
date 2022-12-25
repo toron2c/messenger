@@ -4,9 +4,7 @@ import { Registration } from './Registration/Registration';
 import Login from './Login/Login';
 
 
-
 export default function Authorization() {
-
     const path = useLocation();
     return (
         <>

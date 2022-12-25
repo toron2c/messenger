@@ -1,10 +1,8 @@
 import style from './../ProfileAbout.module.scss'
 
-let i = 0;
 
 export const ProfileAboutName = ( { name, toggleNewName } ) => {
 
-    console.log( `render PROFILE ABOUT NAME ${i++}` )
 
     return (
         <div className={style.containerField}>

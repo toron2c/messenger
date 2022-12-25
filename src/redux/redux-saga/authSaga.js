@@ -11,6 +11,7 @@ import { doc, setDoc } from "firebase/firestore";
 function* registrationUserWorker() {
     try {
         const data = yield select( state => state.auth );
+        if ( data.email === '' || data.pass === '' ) return;
         yield call( createUserWithEmailAndPassword, auth, data.email, data.pass );
         yield delay( 1000 );
         yield fork( initializeProfileInDB );
@@ -26,6 +27,7 @@ function* registrationUserWorker() {
 function* authUserWorker() {
     try {
         const data = yield select( state => state.auth );
+        if ( data.email === '' || data.pass === '' ) return;
         yield call( signInWithEmailAndPassword, auth, data.email, data.pass );
         yield fork( initializeProfileWorker );
         yield put( setStatusAuth( true ) );

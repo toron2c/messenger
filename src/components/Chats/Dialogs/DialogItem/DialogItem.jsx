@@ -4,12 +4,14 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from './DialogItem.module.scss'
 // import DialogItemButtonRemove from "./DialogItemButtonRemove/DialogItemButtonRemove";
+
 /*
 Added remove dialog
 */
 
 export default function DialogItem( { id, name } ) {
     // let [visibleButton, setVisibleButton] = useState( false );
+
     return ( <>
         <ListItem
             className={styles.item}

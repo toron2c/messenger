@@ -5,7 +5,6 @@ import { authUserWithSaga, clearFields } from "../../../redux/actions";
 import { AuthFields } from "../AuthFields/AuthFields";
 import style from './Login.module.scss'
 
-
 export default function Login() {
     const dispatch = useDispatch();
 

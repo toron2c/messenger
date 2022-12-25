@@ -5,28 +5,29 @@ import './App.scss';
 import PrivateRouter from './hocs/PrivateRouter'
 import PublicRouter from './hocs/PublicRouter'
 import Home from './components/Home/Home';
+
+import { useSelector } from 'react-redux';
+import { getStatusAuth } from './redux/reducers/authReducer/selectorAuth';
 import Menu from './components/Menu/Menu'
 
-import { shallowEqual, useSelector } from 'react-redux';
-import { getStatusAuth } from './redux/reducers/authReducer/selectorAuth';
-
 const Characters = React.lazy( () => import( './components/CharactersPage/Characters' ) );
-const Chats = React.lazy( () => import( './components/Chats/Chats' ) )
-const ChatsMobile = React.lazy( () => import( './components/Chats/ChatsMobile/ChatsMobile' ) )
-const Profile = React.lazy( () => import( './components/Profile/Profile' ) )
-const ErrorPage = React.lazy( () => import( './components/ErrorPage/ErrorPage' ) )
-const Authorization = React.lazy( () => import( './components/Authorization/Authorization' ) )
+const Chats = React.lazy( () => import( './components/Chats/Chats' ) );
+const ChatsMobile = React.lazy( () => import( './components/Chats/ChatsMobile/ChatsMobile' ) );
+const ChatsMobileMessages = React.lazy( () => import( './components/Chats/ChatsMobile/ChatsMobileMessages/ChatsMobileMessages' ) )
+const Profile = React.lazy( () => import( './components/Profile/Profile' ) );
+const ErrorPage = React.lazy( () => import( './components/ErrorPage/ErrorPage' ) );
+const Authorization = React.lazy( () => import( './components/Authorization/Authorization' ) );
+
+
+
 
 function App() {
-
-  const isAuth = useSelector( getStatusAuth(), shallowEqual );
+  const isAuth = useSelector( getStatusAuth(), ( prev, next ) => prev.value !== next.value );
   const windowInnerWidth = window.innerWidth;
-  console.log( windowInnerWidth );
   return ( <div>
     <div className='box'>
-
       <Routes>
-        <Route path={'/'} element={<Menu isAuth={isAuth} />}>
+        <Route element={<Menu isAuth={isAuth} />}>
           <Route index element={<Home isAuth={isAuth} />} />
           <Route path={'registration'} element={
             <Suspense>
@@ -67,6 +68,15 @@ function App() {
                   </PrivateRouter>
                 </Suspense>}>
               </Route>
+          }
+          {windowInnerWidth < 600 &&
+            <Route path={'chats/:id'} element={
+              <Suspense>
+                <PrivateRouter auth={isAuth}>
+                  <ChatsMobileMessages />
+                </PrivateRouter>
+              </Suspense>
+            } />
           }
 
           {/* 

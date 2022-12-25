@@ -5,9 +5,7 @@ import { getStatusError } from "../../../redux/reducers/authReducer/selectorAuth
 import style from './AuthFields.module.scss'
 
 
-
 export const AuthFields = () => {
-
     const email = useSelector( state => state.auth.email );
     const pass = useSelector( state => state.auth.pass );
     const dispatch = useDispatch();

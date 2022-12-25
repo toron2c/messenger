@@ -13,10 +13,9 @@
     .containerDialog {
         // max-height: 90%;
         display: grid;
-        grid-template-rows: 2fr 1fr;
+        grid-template-rows: 1.5fr 1fr;
         box-sizing: border-box;
         .dialogs {
-            min-height: 95%;
             max-height: 540px;
             overflow-x: auto;
             &::-webkit-scrollbar {

@@ -82,7 +82,7 @@ function* addChatWorker() {
                 throw new Error( 'sorry, but there is already a dialog with the current user' )
             }
         } else {
-            throw new Error( `sorry, but user with this email ${email} not found` )
+            throw new Error( `sorry, but user with this email "${email}" not found` )
         }
     } catch ( error ) {
         let msg = `error load data. please contact to administration (@toron2c)\n message: ${error.message}`;

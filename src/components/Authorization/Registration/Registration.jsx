@@ -5,17 +5,13 @@ import { clearFields, registrationUserWithSaga } from '../../../redux/actions'
 import { AuthFields } from '../AuthFields/AuthFields'
 import style from './Registration.module.scss'
 
-
 export const Registration = () => {
-
     const dispatch = useDispatch();
-    const message = useSelector( state => state.auth.error.message );
+    const message = useSelector( state => state.auth.error.message, ( prev, next ) => prev.value !== next.value );
 
     useEffect( () => {
-        if ( message ) {
-            dispatch( clearFields() )
-        }
-    }, [message, dispatch] )
+        dispatch( clearFields() )
+    }, [dispatch] )
 
 
     const onSubmitHandlerRegistration = ( e ) => {
