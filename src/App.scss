@@ -1,71 +1,25 @@
 
+body::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;               /* ширина всей полосы прокрутки */
+  }
+  
+  body::-webkit-scrollbar-track {
+    background: transparent;        /* цвет зоны отслеживания */
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: #2474cf69;
+    border-radius: 20px;       /* округлось бегунка */
+    // border: 3px solid orange;  /* отступ вокруг бегунка */
+  }
+
 .box {
     width: 100vw;
     height: 100vh;
-    border: 10px solid #1565c0;
-    border-radius: '5px';
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: 5fr;
+    // border: 1% solid #1565c0;
+    // border-radius: 5px;
     box-sizing: border-box;
-    .messages {
-        background-color: #99dfff;
-        max-height: 100%;
-        box-sizing: border-box;
-    }
+    padding-top: 5px;
+    margin: 0;
 }
-
-// .box {
-//     width: 100%;
-//     height: 100vh;
-//     margin: 0 auto;
-//     border: 1px solid #1285e4;
-//     background-color: #98d2f8;
-//     border-radius: 4px;
-//     display: grid;
-//     grid-auto-flow: row;
-// }
-// .controllers {
-//     margin: 10px;
-//     .controllersInput {
-//         display: flex;
-//     }
-//     textarea {
-//         height: 34px;
-//         width: 259px;
-//     }
-//     button {
-//         border-radius: 5px;
-//         border: 2px solid #fff;
-//         background: rgb(37, 145, 233);
-//         color: #fff;
-//         margin: 0 0 0 10px;
-//         height: 40px;
-//         width: 112px;
-//         &:hover {
-//             color:rgb(2, 37, 66);
-//             border: 3px solid rgb(4, 55, 97);
-//             background-color: #98d2f8;
-//         }
-//     }
-//     .textAlert {
-//         color: rgb(4, 28, 78);
-//         font-weight: 700;
-//     }
-// }
-
-// .messages {
-    
-//     display:grid;
-//     grid-template-columns: 1;
-//     grid-template-rows: 100px;
-    
-// }
-
-// .user {
-//     justify-self: end;    
-// }
-
-// .bot {
-//     justify-self: start;
-// }

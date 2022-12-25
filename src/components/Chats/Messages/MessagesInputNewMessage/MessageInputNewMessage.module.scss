@@ -1,0 +1,15 @@
+.inputMessageArea {
+    border-radius: 7px;
+    background-color: #fff;
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;   
+    }
+    &::-webkit-scrollbar-track {
+    background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+    background-color: #2474cf94;
+    border-radius: 20px;       
+    }
+}

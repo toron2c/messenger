@@ -1,0 +1,22 @@
+.item {
+    display: flex;
+    padding: 3px 0 5px 1px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    margin: 1px;
+    font-size: 0.75rem;
+    .ava {
+        width: 10vw;
+    }
+    .name {
+        color: #28b92c;
+        font-weight: bolder;
+        padding:0 0 0 3px;
+        margin: 0;
+        @media (min-width: 600px) {
+            // margin: auto auto;
+            padding: 10px;
+            font-size: 1rem;
+        }
+    }
+}
