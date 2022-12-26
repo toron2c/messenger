@@ -24,7 +24,8 @@ function* getChatsWorker() {
         let arrayDialogs = [];
         for ( let [index, dialog] of dialogs.entries() ) {
             let correctDialog = {
-                nameDialog: yield getNameForChatWorker( dialog.uidAnotherUser ),
+                avatar: yield call( getAvatarProfile, dialog.uidAnotherUser ),
+                nameDialog: yield call( getNameForChatWorker, dialog.uidAnotherUser ),
                 chatId: dialog.chatId,
                 linkToDialog: index,
             }
@@ -33,7 +34,7 @@ function* getChatsWorker() {
         if ( arrayDialogs.length > 0 ) {
             yield put( addChatToStore( arrayDialogs ) );
             for ( let dialog of arrayDialogs ) {
-                yield put( getMessagesWithSaga( dialog.chatId, dialog.linkToDialog ) );
+                yield put( getMessagesWithSaga( dialog.chatId, dialog.linkToDialog, dialog.avatar ) );
             }
         }
 
@@ -41,6 +42,25 @@ function* getChatsWorker() {
         console.error( `error load chat's. please contact to administration (@toron2c)\n message: ${error.message}` );
     }
 }
+/**
+ * function gen get user avatar 
+ * @param {string} uid user 
+ */
+function* getAvatarProfile( uid ) {
+    try {
+        const refUser = doc( fs, 'users', uid );
+        let avatar = '';
+        let profile = yield getDoc( refUser );
+        if ( profile.data().avatar ) {
+            avatar = profile.data().avatar;
+        }
+        return avatar;
+    } catch ( e ) {
+        console.error( `error load chat's. please contact to administration (@toron2c)\n message: ${e.message}` );
+    }
+}
+
+
 /**
  * function worker get username chat
  * @param {string} uid user uid

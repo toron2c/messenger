@@ -2,6 +2,7 @@ import {
     DELETE_DATA_AFTER_LOGOUT,
     INITIALIZE_PROFILE,
     SET_ABOUT_PROFILE,
+    SET_AVATAR_TO_PROFILE,
     SET_ERROR_SAVE_PROFILE_DATA,
     SET_NAME_PROFILE,
     SET_STATUS_PROFILE,
@@ -14,9 +15,10 @@ const initialState = {
     email: '',
     name: '',
     uid: '',
+    avatar: '',
     infoUser: {
         status: '',
-        about: ''
+        about: '',
     },
     isEditProfile: false,
     error: {
@@ -63,6 +65,11 @@ export const profileReducer = ( state = initialState, action ) => {
                     about: action.value
                 }
             }
+        case SET_AVATAR_TO_PROFILE:
+            return {
+                ...state,
+                avatar: action.src
+            }
         case SET_ERROR_SAVE_PROFILE_DATA: {
             return {
                 ...state,
@@ -78,9 +85,10 @@ export const profileReducer = ( state = initialState, action ) => {
                 email: '',
                 name: '',
                 uid: '',
+                avatar: '',
                 infoUser: {
                     status: '',
-                    about: ''
+                    about: '',
                 },
                 isEditProfile: false,
                 error: {

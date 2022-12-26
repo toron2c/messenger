@@ -4,12 +4,10 @@ import { setAboutProfile } from '../../../../redux/actions';
 import { getUserAbout } from '../../../../redux/reducers/profileReducer/selectorProfile';
 import style from './../ProfileAboutInputs.module.scss'
 
-let i = 0;
 
 export const ProfileAboutInputAbout = () => {
     const dispatch = useDispatch();
     const about = useSelector( getUserAbout(), shallowEqual )
-    console.log( `render PROFILE ABOUT INPUT ABOUT ${i++}` )
 
     const onChangeInputHandler = ( e ) => {
         e.preventDefault();

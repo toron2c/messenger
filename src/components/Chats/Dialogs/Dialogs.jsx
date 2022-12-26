@@ -19,7 +19,7 @@ export default function Dialogs() {
     const dialogs = useSelector( getDialogs() );
 
 
-    let list = dialogs.map( ( el ) => <DialogItemMemo key={el.chatId} id={el.linkToDialog} name={el.nameDialog} /> )
+    let list = dialogs.map( ( el ) => <DialogItemMemo avatar={el.avatar} key={el.chatId} id={el.linkToDialog} name={el.nameDialog} /> )
     return ( <div>
         <List dense>{list}</List>
     </div> )

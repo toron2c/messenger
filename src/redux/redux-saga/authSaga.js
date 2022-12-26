@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } f
 import { auth, fs } from '../../services/firebase'
 import { initializeProfile, logoutAuth, setErrorAuth, setStatusAuth, getChatsWithSaga, deleteDataAfterLogout } from "../actions";
 import { get, getDatabase, ref, set } from "firebase/database";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 
 // function gen registration start function initialize profile
@@ -66,13 +66,21 @@ function* logoutUserWorker() {
 function* initializeProfileWorker() {
     try {
         const dbRef = ref( getDatabase(), `profile/${auth.currentUser.uid}` );
+        const refUser = doc( fs, 'users', auth.currentUser.uid );
+        const us = yield getDoc( refUser );
+        let avatarsrc = '';
+        if ( us.data().avatar ) {
+            avatarsrc = us.data().avatar;
+        }
         const infoUser = yield get( dbRef );
         let data = {
             email: auth.currentUser.email,
             name: auth.currentUser.displayName,
             uid: auth.currentUser.uid,
+            avatar: avatarsrc,
             infoUser: infoUser.val()
         }
+        console.log( data );
         yield put( initializeProfile( data ) );
     } catch ( error ) {
         console.error( `Error get datas profile. Please contact to administration Chat! (@toron2c) ErrorMessage: ${error.message}` );

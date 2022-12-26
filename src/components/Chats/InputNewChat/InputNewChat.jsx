@@ -27,9 +27,9 @@ export default function InputNewChat() {
 
     return (
         <div className={style.boxAddedChat}>
-            <TextField error={isError} type='email' required onChange={onChangeInputNewChat} value={newNameChat} label="Name chat" variant="outlined" />
+            <TextField error={isError} type='email' required onChange={onChangeInputNewChat} value={newNameChat} label="email user" variant="outlined" />
             <div className={style.newChatButton}>
                 {isError && <div className={style.error}>{errorMessage}</div>}
-                <Button type="submit" onClick={addNewChatHandler} variant="contained">Create</Button></div>
+                <Button type="submit" onClick={addNewChatHandler} variant="contained">add</Button></div>
         </div> )
 }

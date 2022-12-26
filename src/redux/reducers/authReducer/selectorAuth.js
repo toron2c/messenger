@@ -4,6 +4,5 @@ export function getStatusError() {
 
 
 export function getStatusAuth() {
-    // console.log( `use getStatusAuth function ${++i}` )
     return ( state ) => state.auth.isAuth;
 }

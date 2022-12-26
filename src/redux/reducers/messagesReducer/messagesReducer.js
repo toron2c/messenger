@@ -36,6 +36,7 @@ export const messagesReducer = ( state = initialState, action ) => {
             if ( state.messageList[action.uid]?.messages?.length ) return state;
             let el = {
                 link: action.link,
+                avatar: action.img,
                 page: action.pageMessage,
                 messages: action.messages,
                 subscribe: false

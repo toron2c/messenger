@@ -1,10 +1,10 @@
 import { updateProfile } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 import { doc, updateDoc } from "firebase/firestore";
-import { put, select, takeLatest } from "redux-saga/effects";
+import { all, delay, put, select, takeLatest } from "redux-saga/effects";
 import { auth, fs } from "../../services/firebase";
-import { setErrorSaveProfile, setToggleProfileEdit } from "../actions";
-import { SAVE_PROFILE_WITH_SAGA } from "../types";
+import { setAvatarToProfile, setErrorSaveProfile, setToggleProfileEdit } from "../actions";
+import { SAVE_PROFILE_WITH_SAGA, SET_AVATAR_PROFILE_WITH_SAGA } from "../types";
 
 
 
@@ -35,9 +35,26 @@ function* saveProfileWorker() {
     }
 }
 
+function* setAvatarWorker( { src } ) {
+    try {
+        yield updateDoc( doc( fs, 'users', auth.currentUser.uid ), {
+            avatar: src
+        } );
+        yield put( setAvatarToProfile( src ) )
+    } catch ( error ) {
+        console.error( `error set avatar. Contact to administrator @toron2c, error: ${error.message}` );
+    }
+}
 
 
+function* setAvatarWatcher() {
+    yield takeLatest( SET_AVATAR_PROFILE_WITH_SAGA, setAvatarWorker )
+}
 
-export function* saveProfileWatcher() {
+function* saveProfileWatcher() {
     yield takeLatest( SAVE_PROFILE_WITH_SAGA, saveProfileWorker )
+}
+
+export function* rootProfileSaga() {
+    yield all( [saveProfileWatcher(), setAvatarWatcher()] )
 }

@@ -18,6 +18,7 @@ export default function Menu( { isAuth } ) {
         </header>
         <main className={style.main}>
             <MenuOutlet />
+
         </main>
     </div>
     )

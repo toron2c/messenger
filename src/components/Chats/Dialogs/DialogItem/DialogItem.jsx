@@ -6,12 +6,12 @@ import styles from './DialogItem.module.scss'
 // import DialogItemButtonRemove from "./DialogItemButtonRemove/DialogItemButtonRemove";
 
 /*
+
 Added remove dialog
 */
 
-export default function DialogItem( { id, name } ) {
+export default function DialogItem( { id, name, avatar } ) {
     // let [visibleButton, setVisibleButton] = useState( false );
-
     return ( <>
         <ListItem
             className={styles.item}
@@ -19,6 +19,7 @@ export default function DialogItem( { id, name } ) {
             // onMouseLeave={() => setVisibleButton( false )}
             disablePadding alignItems="flex-start">
             <div className={styles.itemName} >
+                {avatar && <div><img className={styles.avatar} src={avatar} width='24' heigth='24' alt={'profile avatar'} /></div>}
                 <div className={styles.itemBox}><NavLink className={( { isActive } ) => isActive ? styles.activeDialog : styles.buttonChat} to={`${id}`}>{name}</NavLink></div>
                 {/* {visibleButton && <DialogItemButtonRemove id={id} />} */}
             </div>

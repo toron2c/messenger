@@ -34,7 +34,7 @@ export default function Messages() {
         {isCorrectId ?
             <div className={styles.box}>
                 <div className={styles.messagesTitle}>
-                    <div className={styles.messagesTitleName}>{isCorrectId.nameDialog}</div>
+                    <div className={styles.messagesTitleName}>{isCorrectId.nameDialog}{isCorrectId.avatar && <img className={styles.avatar} src={isCorrectId.avatar} width='24' heigth='24' alt={'profile avatar'} />}</div>
                     {windowInnerWidth < 600 && <Link to='/chats'><ArrowBackIcon sx={{ color: blue[50] }} /></Link>}
                 </div>
                 <div onScroll={onScrollFunction} className={styles.messages}>

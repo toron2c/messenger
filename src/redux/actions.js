@@ -24,6 +24,8 @@ import {
     SEND_MESSAGE_WITH_SAGA,
     SET_ABOUT_PROFILE,
     SET_ADDED_CHAT_ERROR,
+    SET_AVATAR_PROFILE_WITH_SAGA,
+    SET_AVATAR_TO_PROFILE,
     SET_CLOSED_SUBSCRIBE,
     SET_EMAIL,
     SET_ERROR,
@@ -110,6 +112,22 @@ export function setErrorSaveProfile( msg ) {
     return {
         type: SET_ERROR_SAVE_PROFILE_DATA,
         msg
+    }
+}
+/**
+ * function action set avatar profile
+ * @param {string} src on image
+ */
+export function setAvatarWithSaga( src ) {
+    return {
+        type: SET_AVATAR_PROFILE_WITH_SAGA,
+        src
+    }
+}
+export function setAvatarToProfile( src ) {
+    return {
+        type: SET_AVATAR_TO_PROFILE,
+        src
     }
 }
 
@@ -216,13 +234,15 @@ export function inputChat( value ) {
  * function action get messages /// p.s. create limit 15
  * @param {string} uidChat id chat in firestore
  * @param {number} linkToDialog link to dialog in app
+ * @param {string} srcToAvatarProfile link to dialog in app
  * @returns type action, uid: uid chat, link: link to dialog
  */
-export function getMessagesWithSaga( uidChat, linkToDialog ) {
+export function getMessagesWithSaga( uidChat, linkToDialog, imgSrc ) {
     return {
         type: GET_MESSAGES_WITH_SAGA,
         uid: uidChat,
-        link: linkToDialog
+        link: linkToDialog,
+        img: imgSrc
     }
 }
 /**
@@ -233,13 +253,14 @@ export function getMessagesWithSaga( uidChat, linkToDialog ) {
  * @param {number} pageMessages page of messages
  * @returns type action, uid chat, array messages
  */
-export function initializeMessagesToStore( uid, link, messages, pageMessage ) {
+export function initializeMessagesToStore( uid, link, messages, pageMessage, img ) {
     return {
         type: ADD_MESSAGES_TO_STORE,
         uid,
         link,
         messages,
-        pageMessage
+        pageMessage,
+        img
     }
 }
 /**

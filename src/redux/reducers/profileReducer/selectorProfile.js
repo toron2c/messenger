@@ -25,3 +25,7 @@ export function getStatusErrorSaveProfile() {
 export function getErrorMessageSaveProfile() {
     return ( state ) => state.profile.error.msg
 }
+
+export function getUserAvatar() {
+    return ( state ) => state.profile.avatar;
+}

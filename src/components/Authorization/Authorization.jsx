@@ -21,6 +21,7 @@ export default function Authorization() {
             <div className={style.nativeAd}>
                 <p>native advertising</p>
                 <p>pojalusta voz'mite na rabotu!11!11!</p>
+                <p className={style.nativeAdDescription}>created for fun and experince @toron2c©</p>
             </div>
         </>
     )

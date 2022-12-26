@@ -53,12 +53,12 @@ export function* getMessagesFromFirestore( uid, currentPageMessages = 0 ) {
  * function gen initializate messages
  * @param {payload} uidChat, link 
  */
-function* getMessegesWorker( { uid, link } ) {
+function* getMessegesWorker( { uid, link, img } ) {
     try {
         // get messages from firestore
         const lastMessages = yield call( getMessagesFromFirestore, uid );
         // put messages to state
-        yield put( initializeMessagesToStore( uid, link, lastMessages, 1 ) );
+        yield put( initializeMessagesToStore( uid, link, lastMessages, 1, img ) );
     } catch ( error ) {
         console.error( `error load messages, please contact to administartion (@toron2c)\nmessage: ${error.message}` )
     }

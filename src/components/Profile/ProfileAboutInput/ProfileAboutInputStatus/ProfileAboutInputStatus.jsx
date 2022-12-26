@@ -4,12 +4,10 @@ import { setStatusProfile } from '../../../../redux/actions';
 import { getUserStatus } from '../../../../redux/reducers/profileReducer/selectorProfile';
 import style from './../ProfileAboutInputs.module.scss'
 
-let i = 0;
 
 export const ProfileAboutInputStatus = () => {
     const dispatch = useDispatch();
     const status = useSelector( getUserStatus(), shallowEqual )
-    console.log( `render PROFILE ABOUT INPUT NAME ${i++}` )
 
     const onChangeInputHandler = ( e ) => {
         e.preventDefault();
