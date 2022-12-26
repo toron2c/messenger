@@ -23,7 +23,7 @@ export default function DialogsNewChat() {
         <div className={style.nativeAd}>
             <p>native advertising</p>
             <p>pojalusta voz'mite na rabotu!11!11!</p>
-            <p className={style.nativeAdDescription}>created for fun and experince @toron2c©</p>
+            <p className={style.nativeAdDescription}>created for fun and experience @toron2c©</p>
         </div>
     </> )
 }
