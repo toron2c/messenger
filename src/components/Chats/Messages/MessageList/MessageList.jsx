@@ -25,7 +25,7 @@ export default function MessageList( { uid } ) {
         if ( ( startDate === undefined ) || ( startDate.getDate() !== time.getDate() ) ) {
             startDate = time;
             let tmpDate = startDate.toLocaleString( 'default', { month: 'long' } )
-            return <React.Fragment key={el.idMessage}><div key={`${el.idMessage}_date`} className={styles.date}>{tmpDate} {startDate.getDate()}</div><MessageMemo el={el} key={`${el.idMessage}_m`} /></React.Fragment >
+            return <React.Fragment key={el.idMessage}><div key={`${el.idMessage}_date`} className={styles.date}>{tmpDate} {startDate.getDate()}</div><MessageMemo el={el} key={`${el.idMessage}_m`} /></React.Fragment>
         }
         return <MessageMemo key={`${el.idMessage}_message`} el={el} />
     } )
