@@ -4,7 +4,7 @@
     grid-template-rows: 1fr 1fr;
     .dialogs {
         min-height: 95%;
-        max-height: 540px;
+        max-height: 600px;
         overflow-x: auto;
         &::-webkit-scrollbar {
             width: 5px;
