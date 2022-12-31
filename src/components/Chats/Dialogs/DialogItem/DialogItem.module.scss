@@ -1,60 +1,41 @@
-// .item {
-    //     min-height: 60px;
-    //     border-radius: 6px;
-    //     border-top: 1px solid #ccc;
-    //     text-decoration: none;
-//     padding:10px 20px;
-//     width: 100%;
-//     display: flex;
-//     word-break:break-all;
-//     max-width: 100%;
-//     box-sizing: border-box;
-        // margin: 10px 0 0 10px;
-        .unActiveDialog {
-            border: 2px solid #1976d2;
-            border-bottom: none;
-            display:block;
-            text-decoration: none;
-            min-height: 60px;
-            padding:15px 10px 5px 12px;
-            word-break: all;
-            max-width: 100%;
-            border-radius: 6px;
-            font-size: 18px;
-            font-weight: 600;
-            color: #43505c;
-            display:flex;
-            align-items: center;
-            &:hover {
-                background-color: #99dfffad;
-            }
-        }
-        .activeDialog {
-            display:block;
-            display:flex;
-            border: 2px solid #1976d2;
-            border-bottom: none;
-            font-weight: 600;
-            text-decoration: none;
-            min-height: 60px;
-            max-width: 100%;
-            padding:15px 0 5px 12px;
-            align-items: center;
-            max-width: 100%;
-            word-break: all;
-            border-radius: 6px;
-            background-color: #1976d2;
-            font-size: 18px;
-            color: #fff;
-            // margin: 0 5px;
-            // padding:5px;
-        }
+
+.unActiveDialog {
+    border: 2px solid #1976d2;
+    border-bottom: none;
+    display:block;
+    text-decoration: none;
+    min-height: 60px;
+    padding:15px 10px 5px 12px;
+    word-break: break-all;
+    max-width: 100%;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #43505c;
+    display:flex;
+    align-items: center;
+    &:hover {
+        background-color: #99dfffad;
+    }
+}
+.activeDialog {
+    display:block;
+    display:flex;
+    border: 2px solid #1976d2;
+    border-bottom: none;
+    font-weight: 600;
+    text-decoration: none;
+    min-height: 60px;
+    padding:15px 0 5px 12px;
+    align-items: center;
+    max-width: 100%;
+    word-break: break-all;
+    border-radius: 6px;
+    background-color: #1976d2;
+    font-size: 18px;
+    color: #fff;
+}
     
-// }
-
-
-
-
 
 .avatar {
     width: 44px;

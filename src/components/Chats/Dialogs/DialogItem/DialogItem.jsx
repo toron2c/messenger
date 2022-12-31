@@ -1,4 +1,3 @@
-import { ListItem } from "@mui/material";
 import React from "react";
 // import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -18,7 +17,7 @@ export default function DialogItem( { id, name, avatar } ) {
         {/* // onMouseLeave={() => setVisibleButton( false )} */}
         <NavLink className={( { isActive } ) => isActive ? styles.activeDialog : styles.unActiveDialog} to={`${id}`}>
             {avatar && <div><img className={styles.avatar} src={avatar} width='24' heigth='24' alt={'profile avatar'} /></div>}
-            {name}
+            <p>{name}</p>
         </NavLink>
         {/* {visibleButton && <DialogItemButtonRemove id={id} />} */}
     </li> )
