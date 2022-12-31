@@ -1,39 +1,65 @@
-.item {
-    min-height: 40px;
-    .itemName {
-        margin: 10px 0 0 10px;
-        width: 100%;
-        display: flex;
-        .itemBox {
-            word-break:break-all;
-            max-width: 78%;
-            box-sizing: border-box;
-            justify-self: right;
-            .buttonChat {
-                display:block;
-                text-decoration: none;
-                font-size: 20px;
-                color: #1976d2;
-                margin: 0 10px;
-            }
-            .activeDialog {
-                display:block;
-                border-radius: 7px;
-                text-decoration: none;
-                background-color: #1976d2;
-                font-size: 20px;
-                color: #fff;
-                margin: 0 5px;
-                padding:5px;
+// .item {
+    //     min-height: 60px;
+    //     border-radius: 6px;
+    //     border-top: 1px solid #ccc;
+    //     text-decoration: none;
+//     padding:10px 20px;
+//     width: 100%;
+//     display: flex;
+//     word-break:break-all;
+//     max-width: 100%;
+//     box-sizing: border-box;
+        // margin: 10px 0 0 10px;
+        .unActiveDialog {
+            border: 2px solid #1976d2;
+            border-bottom: none;
+            display:block;
+            text-decoration: none;
+            min-height: 60px;
+            padding:15px 10px 5px 12px;
+            word-break: all;
+            max-width: 100%;
+            border-radius: 6px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #43505c;
+            display:flex;
+            align-items: center;
+            &:hover {
+                background-color: #99dfffad;
             }
         }
-    }
+        .activeDialog {
+            display:block;
+            display:flex;
+            border: 2px solid #1976d2;
+            border-bottom: none;
+            font-weight: 600;
+            text-decoration: none;
+            min-height: 60px;
+            max-width: 100%;
+            padding:15px 0 5px 12px;
+            align-items: center;
+            max-width: 100%;
+            word-break: all;
+            border-radius: 6px;
+            background-color: #1976d2;
+            font-size: 18px;
+            color: #fff;
+            // margin: 0 5px;
+            // padding:5px;
+        }
     
-}
+// }
+
+
+
 
 
 .avatar {
+    width: 44px;
     border-radius: 50%;
+    margin-right: 5px;
 }
 
 
@@ -48,4 +74,20 @@
     padding: 5px 5px;
     background-color: rgba(245, 177, 186, 0.533);
     border-radius: 7px;
+}
+
+
+.boxList {
+    width: 100%;
+    
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li:last-child {
+        border-bottom: 2px solid #1976d2;
+        border-radius: 6px;
+    }
 }

@@ -1,9 +1,9 @@
-import { List } from "@mui/material";
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closedSubscribeOnNewChats, setSubscribeOnNewChats } from "../../../redux/actions";
 import { getChatsList } from "../../../redux/reducers/chatsReducer/selectorChats";
 import DialogItem from "./DialogItem/DialogItem";
+import style from './DialogItem/DialogItem.module.scss'
 
 export default function Dialogs() {
     const dispatch = useDispatch();
@@ -20,8 +20,8 @@ export default function Dialogs() {
 
 
     let list = dialogs.map( ( el ) => <DialogItemMemo avatar={el.avatar} key={el.chatId} id={el.linkToDialog} name={el.nameDialog} /> )
-    return ( <div>
-        <List dense>{list}</List>
+    return ( <div className={style.boxList}>
+        <ul className={style.list}>{list}</ul>
     </div> )
 }
 
