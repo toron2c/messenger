@@ -80,7 +80,6 @@ function* initializeProfileWorker() {
             avatar: avatarsrc,
             infoUser: infoUser.val()
         }
-        console.log( data );
         yield put( initializeProfile( data ) );
     } catch ( error ) {
         console.error( `Error get datas profile. Please contact to administration Chat! (@toron2c) ErrorMessage: ${error.message}` );
