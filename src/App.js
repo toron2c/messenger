@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import './App.scss';
+import './App.module.css';
 
 import PrivateRouter from './hocs/PrivateRouter'
 import PublicRouter from './hocs/PublicRouter'
