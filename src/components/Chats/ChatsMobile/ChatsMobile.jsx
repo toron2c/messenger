@@ -10,7 +10,7 @@ export default function ChatsMobile() {
             <div className={style.dialogs}>
                 <Dialogs />
             </div>
-            <div className={style.dialogsController}>
+            <div className={style.containerDialogs__newChat}>
                 <DialogsNewChat />
             </div>
         </div>

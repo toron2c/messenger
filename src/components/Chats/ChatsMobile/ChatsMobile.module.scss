@@ -1,21 +1,23 @@
-.containerDialogs {
-    max-height: 100%;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    .dialogs {
-        min-height: 95%;
-        max-height: 600px;
-        overflow-x: auto;
-        &::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;   
-        }
-        &::-webkit-scrollbar-track {
-        background: transparent;
-        }
-        &::-webkit-scrollbar-thumb {
-        background-color: #2474cf94;
-        border-radius: 20px;       
-        }
-    }
-}
+// .containerDialogs {
+   
+//     .dialogs {
+//         min-height: 95%;
+//         max-height: 600px;
+//         overflow-x: auto;
+//         &::-webkit-scrollbar {
+//             width: 5px;
+//             height: 5px;   
+//         }
+//         &::-webkit-scrollbar-track {
+//         background: transparent;
+//         }
+//         &::-webkit-scrollbar-thumb {
+//         background-color: #2474cf94;
+//         border-radius: 20px;       
+//         }
+//     }
+// }
+
+// .containerDialogs__newChat {
+// 	max-height: 20%;
+// }

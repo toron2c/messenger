@@ -1,48 +1,51 @@
-.chats {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    box-sizing: border-box;
-    height: 100%;
-    .messages {
-        background-color: #99dfff;
-        // max-height: 100%;
-        border-radius: 6px;
-        border-top-right-radius: 0;
-        box-sizing: border-box;
-    }
-    .containerDialog {
-        // max-height: 90%;
-        display: grid;
-        grid-template-rows: 1.5fr 1fr;
-        box-sizing: border-box;
-        .dialogs {
-            max-height: 540px;
-            overflow-x: auto;
-            &::-webkit-scrollbar {
-                width: 5px;
-                height: 5px;   
-            }
-            &::-webkit-scrollbar-track {
-            background: transparent;
-            }
-            &::-webkit-scrollbar-thumb {
-            background-color: #2474cf94;
-            border-radius: 20px;       
-            }
-        }
-        .containerNewDialog {
-            box-sizing: border-box;
-            margin: 0 auto;
-        }
-    }
-}
+// .chats {
+//     display: grid;
+//     grid-template-columns: 1fr 4fr;
+//     box-sizing: border-box;
+//     // height: 100%;
+//     .messages {
+//         // background-color: #99dfff;
+//         height: 100%;
+//         border-radius: 6px;
+//         border-top-right-radius: 0;
+//         box-sizing: border-box;
+//     }
+//     .containerDialog {
+//         // max-height: 90%;
+//         display: grid;
+//         grid-template-rows: 1.5fr 1fr;
+//         box-sizing: border-box;
+//         .dialogs {
+//             max-height: 600px;
+//             overflow-x: auto;
+//             &::-webkit-scrollbar {
+//                 width: 5px;
+//                 height: 5px;   
+//             }
+//             &::-webkit-scrollbar-track {
+//             background: transparent;
+//             }
+//             &::-webkit-scrollbar-thumb {
+//             background-color: #2474cf94;
+//             border-radius: 20px;       
+//             }
+//         }
+        
+//     }
+		
+// }
 
-.newChatButton {
-    padding: 5px 0 0 0;
-}
+// .chats__newDialogInput{
+// 	box-sizing: border-box;
+// 	height: 260px;
+// 	margin: 0 auto;
+// }
+// .newChatButton {
+//     padding: 5px 0 0 0;
+// }
 
-.warning {
-    padding: 10px 10px 10px 15px;
-    font-size: 40px;
-    color:#0a2836;
-}
+// .warning {
+//     padding: 10px 10px 10px 15px;
+//     font-size: 40px;
+//     color:#0a2836;
+// }

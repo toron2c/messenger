@@ -8,12 +8,12 @@ export const HomeLogin = () => {
         <ul className={style.list}>
             <li>
                 <Link to='/login' className={style.listLink}>
-                    Sign In
+                    Авторизоваться
                 </Link>
             </li>
             <li>
                 <Link to='/registration' className={style.listLink}>
-                    Sign Up
+                    Зарегистрирваться
                 </Link>
             </li>
         </ul>

@@ -11,7 +11,7 @@ export default function Chats() {
                 <div className={style.dialogs}>
                     <Dialogs />
                 </div>
-                <div className={style.containerNewDialog}>
+                <div className={style.chats__newDialogInput}>
                     <DialogsNewChat />
                 </div>
             </div>

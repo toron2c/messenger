@@ -45,7 +45,7 @@ export default function Messages() {
                     <MessagesInputNewMessage uid={isCorrectId.chatId} />
                 </div>
             </div>
-            : <p className={styles.warning}>Pls choice the chat</p>
+            : <p className={styles.warning}>Enter your chat</p>
         }
     </>
     )
