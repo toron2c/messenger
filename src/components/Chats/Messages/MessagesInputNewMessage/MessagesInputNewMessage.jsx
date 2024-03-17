@@ -1,5 +1,3 @@
-import { Button, TextField } from "@mui/material";
-import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from "react-redux";
 import style from './MessageInputNewMessage.module.scss'
 
@@ -25,7 +23,7 @@ export default function MessagesInputNewMessage( { uid } ) {
 
     return (
         <>
-            <TextField
+            <textarea
                 className={style.inputMessageArea}
                 fullWidth
                 autoFocus
@@ -36,9 +34,9 @@ export default function MessagesInputNewMessage( { uid } ) {
                 rows={3}
                 placeholder='text message'
             />
-            <Button variant="contained" endIcon={<SendIcon />} onClick={onSendMessage}>
+            <button variant="contained" onClick={onSendMessage}>
                 Send
-            </Button>
+            </button>
         </>
     )
 }

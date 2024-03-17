@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleNewChatInput } from "../../../redux/actions";
@@ -17,7 +16,7 @@ export default function DialogsNewChat() {
         dispatch( toggleNewChatInput() )
     }
     return (
-        !inputNewDialog ? <div className={style.buttonAddChat}><Button onClick={setInputVisible} variant="contained">Add user</Button> </div> :
+        !inputNewDialog ? <div className={style.buttonAddChat}><button onClick={setInputVisible} variant="contained">Add user</button> </div> :
             <InputNewChat />
         
        

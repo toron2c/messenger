@@ -14,12 +14,14 @@ body::-webkit-scrollbar-thumb {
 	/* // border: 3px solid orange;  отступ вокруг бегунка */
 }
 
-.box {
+/* .box {
 	width: 100vw;
 	height: 100vh;
-	 /* border: 1% solid #1565c0; */
-	 /* border-radius: 5px; */
+	
 	box-sizing: border-box;
 	padding-top: 5px;
 	margin: 0;
-}
+	background-color: #000;
+} */
+ /* border: 1% solid #1565c0; */
+	 /* border-radius: 5px; */

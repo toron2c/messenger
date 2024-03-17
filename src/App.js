@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import './App.module.css';
+import './App.scss';
 
 import PrivateRouter from './hocs/PrivateRouter'
 import PublicRouter from './hocs/PublicRouter'
@@ -24,8 +24,8 @@ const Authorization = React.lazy( () => import( './components/Authorization/Auth
 function App() {
   const isAuth = useSelector( getStatusAuth(), ( prev, next ) => prev.value !== next.value );
   const windowInnerWidth = window.innerWidth;
-  return ( <div>
-    <div className='box'>
+  return ( 
+    <>
       <Routes>
         <Route element={<Menu isAuth={isAuth} />}>
           <Route index element={<Home isAuth={isAuth} />} />
@@ -87,8 +87,7 @@ function App() {
           <Route path="*" element={<Suspense><ErrorPage /></Suspense>} />
         </Route>
       </Routes>
-    </div>
-  </div >
+    </>
   )
 }
 

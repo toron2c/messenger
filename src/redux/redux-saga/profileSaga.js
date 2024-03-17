@@ -1,7 +1,7 @@
 import { updateProfile } from "firebase/auth";
 import { getDatabase, ref, set } from "firebase/database";
 import { doc, updateDoc } from "firebase/firestore";
-import { all, delay, put, select, takeLatest } from "redux-saga/effects";
+import { all, put, select, takeLatest } from "redux-saga/effects"; // delay (?)
 import { auth, fs } from "../../services/firebase";
 import { setAvatarToProfile, setErrorSaveProfile, setToggleProfileEdit } from "../actions";
 import { SAVE_PROFILE_WITH_SAGA, SET_AVATAR_PROFILE_WITH_SAGA } from "../types";

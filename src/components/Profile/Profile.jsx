@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux'
-import { Button } from '@mui/material';
 import { shallowEqual, useSelector } from 'react-redux';
 import { getErrorMessageSaveProfile, getStatusErrorSaveProfile, getStatusToggleEditProfile } from '../../redux/reducers/profileReducer/selectorProfile';
 import style from './Profile.module.scss'
@@ -29,13 +28,13 @@ export default function Profile() {
             <h1 className={style.title}>{!isEditProfiled ? 'Profile' : 'Edit profile'}</h1>
             {!isEditProfiled ?
                 <>
-                    <Button onClick={toggleProfileEditHandler} className={style.profileBoxButtonEdit}>Edit profile</Button>
+                    <button onClick={toggleProfileEditHandler} className={style.profileBoxButtonEdit}>Edit profile</button>
                     {isError && <div className={style.error}>{errorMessage}</div>}
                     <ProfileAboutContainer />
                 </>
                 : <form>
                     <ProfileAboutInputs />
-                    <Button onClick={saveProfileHandler} type='submit' className={style.profileBoxButtonEdit}>Save</Button>
+                    <button onClick={saveProfileHandler} type='submit' className={style.profileBoxButtonEdit}>Save</button>
                 </form>
             }
         </div>

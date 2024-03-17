@@ -1,4 +1,3 @@
-import { TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNameProfile } from '../../../../redux/actions';
 import { getUserName } from '../../../../redux/reducers/profileReducer/selectorProfile';
@@ -17,7 +16,7 @@ export const ProfileAboutInputName = () => {
     return (
         <div className={style.containerInput}>
             <p className={style.containerInputTitle}>name:</p>
-            <TextField required label='name' className={style.containerInputValue} fullWidth onChange={onChangeInputHandler} value={name ? name : ''} />
+            <input required className={style.containerInputValue} onChange={onChangeInputHandler} value={name ? name : ''} />
         </div>
     )
 }

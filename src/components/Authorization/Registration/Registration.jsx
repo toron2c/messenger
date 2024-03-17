@@ -1,4 +1,3 @@
-import { Button } from '@mui/material'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearFields, registrationUserWithSaga } from '../../../redux/actions'
@@ -28,7 +27,7 @@ export const Registration = () => {
             <AuthFields />
             {message && <div className={style.error}>{message}</div>}
             <div className={style.registrationButton}>
-                <Button onClick={onSubmitHandlerRegistration} variant="contained" style={{ display: 'block' }}>Sign In</Button>
+                <button onClick={onSubmitHandlerRegistration}>Sign In</button>
             </div>
         </>
     )

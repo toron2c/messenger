@@ -23,3 +23,29 @@
 //     word-wrap: break-word;
 // }
 
+.home {
+	box-sizing: border-box;
+	display: grid;
+	grid-template-columns: minmax(2rem, 1fr) minmax(min-content, 94rem) minmax(2rem, 1fr);
+	row-gap: 5rem;
+	color: #fff;
+	&__logo {
+		font-size: 10rem;
+		text-align: center;
+		grid-column: 2 / 3;
+		@media (max-width:640px) {
+			font-size: 6rem;
+		}
+	}
+	&__hi {
+		grid-column: 2 / 3;
+		text-align: center;
+		&:first-of-type {
+			font-size: 4rem;
+		}
+		&:last-of-type {
+			font-size: 2rem;
+		}
+	}
+	
+}

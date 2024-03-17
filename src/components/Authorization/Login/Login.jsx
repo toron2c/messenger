@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { authUserWithSaga, clearFields } from "../../../redux/actions";
@@ -30,7 +29,7 @@ export default function Login() {
             <AuthFields />
             {message && <div className={style.error}>{message}</div>}
             <div className={style.buttonLogin}>
-                <Button type="submit" onClick={onSubmitHandlerAuth} variant="contained" style={{ display: 'block' }}>Sign In</Button>
+                <button type="submit" onClick={onSubmitHandlerAuth}>Sign In</button>
             </div>
         </>
     )
