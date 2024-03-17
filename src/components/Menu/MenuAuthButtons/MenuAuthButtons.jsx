@@ -15,8 +15,8 @@ export default function MenuAuthButtons( { isAuth } ) {
     return (
         <>
             {isAuth ?
-                <div><Link className={style.link} onClick={onClickLogout}>logout</Link></div>
-                : <div><Link className={style.link} to='/login'>login</Link></div>}
+                <div><Link className={style.link} onClick={onClickLogout}>Выйти</Link></div>
+                : <div><Link className={style.link} to='/login'>Войти</Link></div>}
         </>
     )
 }

@@ -8,19 +8,29 @@ export default function MenuItems( { isAuth } ) {
         <>
             <nav className={style.menuNavigation}>
                 <ul className={style.list}>
-                    <li><NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/">
-                        Home
-                    </NavLink></li>
-                    {isAuth && <li><NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/profile">
-                        Profile
-                    </NavLink></li>}
-                    {isAuth && <li><NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/chats">
-                        Chats
-                    </NavLink></li>}
                     <li>
-                        <NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/characters">
-                            Characters
-                        </NavLink>
+											<NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/">
+                        Home
+                    		</NavLink>
+										</li>
+                    {isAuth && 
+										<li>
+											<NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/profile">
+                        Profile
+                    	</NavLink>
+										</li>
+										}
+                    {isAuth && 
+										<li>
+											<NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/chats">
+                        Chats
+                    	</NavLink>
+										</li>
+										}
+                    <li>
+                      <NavLink className={( { isActive } ) => isActive ? style.active : style.link} to="/characters">
+                          Characters
+                      </NavLink>
                     </li>
                 </ul>
             </nav>
