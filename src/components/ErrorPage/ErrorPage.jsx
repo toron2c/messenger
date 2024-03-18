@@ -3,7 +3,7 @@ import style from './ErrorPage.module.scss'
 
 export default function ErrorPage() {
 
-    return ( <div className={style.ErrorPage}>
-        <h1 className={style.text} variant="h1">Page not found</h1>
+    return ( <div className={style.errorPage}>
+        <p className={style.text} >Page not found :(</p>
     </div> )
 }

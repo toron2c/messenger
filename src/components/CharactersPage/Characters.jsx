@@ -33,8 +33,8 @@ export default function Characters() {
         <>
             {error ? <CharactersErrorLoad error={error} /> :
                 <div className={style.boxCharacters}>
-                    <div className={style.boxCharactersList}>{list}</div>
                     <CharactersController />
+                    <div className={style.boxCharactersList}>{list}</div>
                 </div>}
         </>
     )

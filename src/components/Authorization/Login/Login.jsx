@@ -24,7 +24,7 @@ export default function Login() {
     return (
         <>
             <div className={style.loginTitle}>
-                Sign in to the chat
+               авторизоваться
             </div>
             <AuthFields />
             {message && <div className={style.error}>{message}</div>}

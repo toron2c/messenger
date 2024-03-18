@@ -22,7 +22,7 @@ export const Registration = () => {
     return (
         <>
             <div className={style.registrationTitle}>
-                sign up to chat
+                зарегистрироваться
             </div>
             <AuthFields />
             {message && <div className={style.error}>{message}</div>}

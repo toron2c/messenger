@@ -1,23 +1,9 @@
-// .containerDialogs {
-   
-//     .dialogs {
-//         min-height: 95%;
-//         max-height: 600px;
-//         overflow-x: auto;
-//         &::-webkit-scrollbar {
-//             width: 5px;
-//             height: 5px;   
-//         }
-//         &::-webkit-scrollbar-track {
-//         background: transparent;
-//         }
-//         &::-webkit-scrollbar-thumb {
-//         background-color: #2474cf94;
-//         border-radius: 20px;       
-//         }
-//     }
-// }
-
-// .containerDialogs__newChat {
-// 	max-height: 20%;
-// }
+.containerDialogs {
+	grid-column: 1 / 2;
+	display: grid;
+	grid-template-rows: minmax(min-content, 40rem) minmax(10rem, 4fr);
+	row-gap: 3rem;
+}
+.containerDialogs__newChat {
+	grid-row: -1 / 2;
+}

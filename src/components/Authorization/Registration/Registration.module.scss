@@ -1,8 +1,13 @@
 .registrationTitle {
-    font-size: 1.2em;
+    font-size: 2.2rem;
+		text-align: center;
     font-weight: 500;
-    color: #1565c0d7;
+    color: #fff;
     text-transform: uppercase;
+		padding:2.5rem 0;
+		@media (max-width: 600px) {
+			font-size: 2.2rem;
+		}
 }
 
 .registrationButton {
@@ -14,7 +19,7 @@
 
 .error {
     margin: 10px 0;
-    font-size: 0.9em;
+    font-size: 1.8rem;
     color: red;
     font-weight: 300;
 }

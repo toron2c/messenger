@@ -1,52 +1,51 @@
-// .item {
-//     display: flex;
-//     padding: 3px 0 5px 1px;
-//     border: 1px solid #999;
-//     border-radius: 5px;
-//     margin: 1px;
-//     font-size: 0.75rem;
-//     .ava {
-//         width: 10vw;
-//     }
-//     .name {
-//         color: #28b92c;
-//         font-weight: bolder;
-//         padding:0 0 0 3px;
-//         margin: 0;
-//         @media (min-width: 600px) {
-//             // margin: auto auto;
-//             padding: 10px;
-//             font-size: 1rem;
-//         }
-//     }
-//     .buttonSetAvatar {
-//         font-size: 9px;
-//         box-sizing: border-box;
-//         background-color: #1976d2;
-//         color: #fff;
-//         text-decoration: none;
-//         border-radius: 4px;
-//         outline: 0;
-//         font-weight: 400;
-//         border: 0;
-//         margin: 0;
-//         padding: 3px;
-//         box-shadow: 0px 3px 1px -2px RGB(0 0 0/20%), 0px 2px 2px 0px RGB(0 0 0/14%), 0px 1px 5px 0px RGB(0 0 0/12%);
-//         &:hover {
-//             background-color: #1565c0;
-//             color: #fff;
-//             box-shadow: 2px -5px 10px 8px rgba(0, 0, 0, 0.2);
-//         }
-//         &:focus {
-//             background-color: #1565c0;
-//             color: #fff;
-//         }
-//         &:active {
-//             border-top: 3px solid #b1c9e4;
-//             border-right: 4px solid #b1c9e4;
-//             border-left: 3px solid #b1c9e4;
-//             border-bottom: 4px solid #b1c9e4;
-//             box-shadow: 2px -2px 10px 8px rgb(219, 225, 243);
-//         }
-//     }
-// }
+.item {
+    display: flex;
+    padding: 3px 0 5px 1px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    margin: 1px;
+    .ava {
+        width: 9vw;
+    }
+    .name {
+        color: #fff;
+        font-size: 1rem;
+        padding:0 0 0 3px;
+        margin: 0;
+        @media (max-width: 600px) {
+            // margin: auto auto;
+            padding: 10px;
+            font-size: 1rem;
+        }
+    }
+    .buttonSetAvatar {
+        font-size: 9px;
+        box-sizing: border-box;
+        background-color: #1976d2;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        outline: 0;
+        font-weight: 400;
+        border: 0;
+        margin: 0;
+        padding: 3px;
+        box-shadow: 0px 3px 1px -2px RGB(0 0 0/20%), 0px 2px 2px 0px RGB(0 0 0/14%), 0px 1px 5px 0px RGB(0 0 0/12%);
+        &:hover {
+            background-color: #1565c0;
+            color: #fff;
+            box-shadow: 2px -5px 10px 8px rgba(0, 0, 0, 0.2);
+        }
+        &:focus {
+            background-color: #1565c0;
+            color: #fff;
+        }
+        &:active {
+            border-top: 3px solid #b1c9e4;
+            border-right: 4px solid #b1c9e4;
+            border-left: 3px solid #b1c9e4;
+            border-bottom: 4px solid #b1c9e4;
+            box-shadow: 2px -2px 10px 8px rgb(219, 225, 243);
+        }
+    }
+}

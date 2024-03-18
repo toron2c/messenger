@@ -15,7 +15,7 @@ export default function Chats() {
                     <DialogsNewChat />
                 </div>
             </div>
-            <div className={style.messages}>
+            <div className={style.c}>
                 <Messages />
             </div>
         </div>

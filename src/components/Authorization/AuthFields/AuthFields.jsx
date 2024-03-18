@@ -26,9 +26,9 @@ export const AuthFields = () => {
     };
 
     return (
-        <form>
-            <div className={style.field}><input  required  type='email' onChange={handleEmailChange} value={email} label="Email"  /></div>
-            <div className={style.field}><input  required  type='password' onChange={handlePassChange} value={pass} label="Password"/></div>
-        </form>
+        <>
+            <label htmlFor="email" className={style.field}><span>Email</span><input id="email" name="email" type="email" placeholder="mail@yandex.com" className={style.field__input} onChange={handleEmailChange} value={email}/></label>
+            <label htmlFor="password" className={style.field}><span>Password</span><input id="password" type="password" name="password" className={style.field__input} onChange={handlePassChange} value={pass} /></label>
+        </>
     )
 }

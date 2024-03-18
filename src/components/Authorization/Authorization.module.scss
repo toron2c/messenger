@@ -1,48 +1,56 @@
-.box {
-    padding-top: 7%;
+.authorize {
+    display: grid;
+		grid-template-columns: minmax(2rem, 1fr) minmax(min-content, 30rem) minmax(2rem, 1fr);
+		gap: 6rem;
+		font-size: 4rem;
+		color: #fff;
     .boxInputs {
-        border: 3px solid #1565c0;
-        border-radius: 7px;
-        margin:0 auto;
-        height:max-content;
-        max-width: 250px;
-        padding: 30px 34px 15px;
+				grid-column: 2 / 3;
     }
 }
 
 .boxCreateAccount {
-    border: 3px solid #1565c093;
-    border-radius: 7px;
-    margin: 20px auto;
-    height:max-content;
-    max-width: 250px;
-    padding: 15px 34px;
+    // border: 3px solid #1565c093;
+    // border-radius: 7px;
+    // margin: 20px auto;
+    // height:max-content;
+    // max-width: 250px;
+    // padding: 15px 34px;
+		grid-column: 2 / 3;
+		font-size: 1.8rem;
     .link {
-        padding: 0;
-        margin: 0;
-        color: #1565c0;
+        padding: 1rem 0.5rem;
+        // margin: 0;
+        color: #fff;
+				transition: color 1s;
+				&:hover {
+					color: rgb(212, 0, 0);
+				}
     }
 }
 
 .nativeAd {
-    border: 2px solid rgba(204, 204, 204, 0.356);
-    text-transform: uppercase;
-    font-weight: 600;
-    color: rgba(204, 204, 204, 0.356);
-    padding: 15px 34px;
-    border-radius: 7px;
-    max-width: 250px;
-    margin: 0 auto;
+	grid-column: 2 / 3;
+	font-size: 1.6rem;
+    // border: 2px solid rgba(204, 204, 204, 0.356);
+    // text-transform: uppercase;
+    // font-weight: 600;
+    // color: rgba(204, 204, 204, 0.356);
+    // padding: 15px 34px;
+    // border-radius: 7px;
+    // max-width: 250px;
+    // margin: 0 auto;
 }
 
 .buttonAddChat {
     @media (max-width:600px) {
-        padding: 10px;
+       
         
     }
 }
 .nativeAdDescription {
-    text-align: right;
-    color: rgba(27, 25, 25, 0.685);
-    font-size: 9px;
+	grid-column: 2 / 3;
+    // text-align: right;
+    // color: rgba(27, 25, 25, 0.685);
+    // font-size: 9px;
 }
