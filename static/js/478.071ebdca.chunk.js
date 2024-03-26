@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkmessenger2000=self.webpackChunkmessenger2000||[]).push([[478],{4478:function(e,r,n){n.r(r),n.d(r,{default:function(){return u}});var a=n(8074),s={ErrorPage:"ErrorPage_ErrorPage__Nyfl1"},t=n(184);function u(){return(0,t.jsx)("div",{className:s.ErrorPage,children:(0,t.jsx)(a.Z,{className:s.text,variant:"h1",children:"Page not found"})})}}}]);
-//# sourceMappingURL=478.071ebdca.chunk.js.map
