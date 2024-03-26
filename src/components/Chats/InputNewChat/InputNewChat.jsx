@@ -26,9 +26,10 @@ export default function InputNewChat() {
 
     return (
         <div className={style.boxAddedChat}>
-            <input error={isError} type='email' required onChange={onChangeInputNewChat} value={newNameChat} label="email user" />
-            <div className={style.newChatButton}>
-                {isError && <div className={style.error}>{errorMessage}</div>}
-                <button type="submit" onClick={addNewChatHandler}>add</button></div>
+            <input type='email' className={style.boxAddedChat__input} placeholder="email@email.ru" required onChange={onChangeInputNewChat} value={newNameChat} label="email user" />
+            
+						{isError && <div className={style.error}>{errorMessage}</div>}   
+            <button className={style.buttonAddChat__input} type="submit" onClick={addNewChatHandler}>add</button>
+
         </div> )
 }

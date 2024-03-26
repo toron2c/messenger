@@ -22,21 +22,18 @@ export default function MessagesInputNewMessage( { uid } ) {
 
 
     return (
-        <>
+        <div className={style.box}>
             <textarea
                 className={style.inputMessageArea}
-                fullWidth
                 autoFocus
                 id={'inputRef'}
                 value={textMessage}
                 onChange={onChangeInput}
-                multiline
-                rows={3}
                 placeholder='text message'
             />
-            <button variant="contained" onClick={onSendMessage}>
-                Send
+            <button className={style.buttonEnter} onClick={onSendMessage}>
+                Отправить
             </button>
-        </>
+        </div>
     )
 }

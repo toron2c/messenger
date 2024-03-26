@@ -1,10 +1,22 @@
-
+.app {
+	height: 100vh;
+	display: grid;
+	grid-template-rows:1fr 90fr;
+}
 .menu {
   box-sizing: border-box;
 	padding: 2rem 2.5rem;
-  @media (max-width: 600px) {
+  @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+		padding: 1.5rem 1rem;
+	}
+	@media only screen and (max-width: 600px) {
     padding: 2rem 1.5rem;
   }
+	@media only screen and (max-width: 385px) {
+    padding: 1rem 0.5rem;
+  }
+	
+
   .list {
     display: flex;
     list-style-type: none;
@@ -14,9 +26,13 @@
   }
   	li {
       margin: 0 1rem 0;
+			@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+				margin: 0 0.5rem 0;
+			}
       @media (max-width: 660px) {
 				margin: 0 0.5rem 0;
       }
+			
     }
   display: flex;
   justify-content: space-between;
@@ -50,10 +66,14 @@
         0px 4px 5px 0px RGB(0 0 0 / 14%), 
         0px 1px 10px 0px RGB(0 0 0 / 12%);
     }
-    @media(max-width: 660px ) {
+    @media only screen and (max-width: 660px ) {
         padding: 2px 3px;
 				font-size: 1.5rem;
     }
+		@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+			padding: 5px 15px;
+			font-size: 2rem;
+		}
 }
 
 .link {
@@ -78,10 +98,14 @@
         text-decoration: none;
         background-color: #abc6e6;
     }
-    @media(max-width: 660px ) {
+    @media only screen and (max-width: 660px ) {
         padding: 2px 3px;
 				font-size: 1.5rem
     }
+		@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+			padding: 5px 15px;
+			font-size: 2rem;
+		}
 }
 .authButton {
     border: none;
@@ -92,12 +116,16 @@
     background-color: #fff;
     border-radius: 5px;
     // padding: 7px 8px;
-    @media (max-width: 375px) {
+    @media only screen and (max-width: 375px) {
         height: 60%;
     }
-    @media (max-width: 600px) {
+    @media only screen and (max-width: 600px) {
         height: 55%;
     }
+		@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+			padding: 5px 15px;
+			font-size: 2rem;
+		}
     padding: 1px 1px 0 1px;
     &:hover {
         background-color: #1565c0;

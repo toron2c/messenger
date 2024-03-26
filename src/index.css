@@ -5,6 +5,7 @@
 }
 html {
 	font-size: 62.5%;
+	
 }
 body {
 	background-color: #455586;
@@ -13,6 +14,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+	height: 100vh;
 }
 
 code {

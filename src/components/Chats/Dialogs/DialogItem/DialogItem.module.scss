@@ -49,19 +49,18 @@
     width: 100%;
 		background-color: #fff;
 		max-height: calc(100vh - 30rem);
-		// max-height: 600px;
-		            overflow-x: auto;
-		            &::-webkit-scrollbar {
-		                width: 5px;
-		                height: 5px;   
-		            }
-		            &::-webkit-scrollbar-track {
-		            background: transparent;
-		            }
-		            &::-webkit-scrollbar-thumb {
-		            background-color: #2474cf94;
-		            border-radius: 20px;       
-								}
+		overflow-x: auto;
+		&::-webkit-scrollbar {
+				width: 5px;
+				height: 5px;   
+			}
+		&::-webkit-scrollbar-track {
+			background: transparent;
+		}
+		&::-webkit-scrollbar-thumb {
+			background-color: #2474cf94;
+			border-radius: 20px;       
+		}
 }
 .item {
 	width: 100%;

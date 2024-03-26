@@ -27,11 +27,11 @@ export default function Messages() {
         }
     }
     return ( <>
-        {isCorrectId ?
+        {isCorrectId ? <> 
             <div className={styles.box}>
                 <div className={styles.messagesTitle}>
                     <div className={styles.messagesTitleName}>{isCorrectId.nameDialog}{isCorrectId.avatar && <img className={styles.avatar} src={isCorrectId.avatar} width='24' heigth='24' alt={'profile avatar'} />}</div>
-                    {windowInnerWidth < 600 && <Link to='/chats'>back</Link>}
+                    {windowInnerWidth < 1024 && <div><Link class={styles.box__back} to='/chats'>←</Link></div>}
                 </div>
                 <div onScroll={onScrollFunction} className={styles.messages}>
                     <div ref={boxMessage} />
@@ -41,7 +41,8 @@ export default function Messages() {
                     <MessagesInputNewMessage uid={isCorrectId.chatId} />
                 </div>
             </div>
-            : <p className={styles.warning}>Enter your chat</p>
+						</>
+            : <p className={styles.warning}>Откройте чат</p>
         }
     </>
     )

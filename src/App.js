@@ -51,7 +51,7 @@ function App() {
             </Suspense>
           } />
           {
-            windowInnerWidth > 600 ?
+            windowInnerWidth > 1024 ?
               <Route path={'chats/'} element={
                 <Suspense>
                   <PrivateRouter auth={isAuth}>
@@ -69,7 +69,7 @@ function App() {
                 </Suspense>}>
               </Route>
           }
-          {windowInnerWidth < 600 &&
+          {windowInnerWidth < 1024 &&
             <Route path={'chats/:id'} element={
               <Suspense>
                 <PrivateRouter auth={isAuth}>

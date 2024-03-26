@@ -22,7 +22,7 @@ export default function Profile() {
         e.preventDefault();
         dispatch( saveProfileWithSaga() );
     }
-
+ 
     return (
         <div className={style.profileBox}>
             <h1 className={style.title}>{!isEditProfiled ? 'Profile' : 'Edit profile'}</h1>
