@@ -27,6 +27,8 @@
     }
   }
   .ad {
+    grid-column: 2/3;
+    margin: 0 auto;
     font-size: 1.5rem;
     .link {
       color: #fff;

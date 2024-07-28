@@ -7,13 +7,7 @@ export default function Home({ isAuth }) {
       <h1 className={style.home__logo} variant="h1">
         {"<"}Messenger 2000{"/>"}
       </h1>
-      <div class={style.ad}>
-        В поисках дизайнера
-        <p>telegram: @toron2c</p>
-        <a class={style.link} href="https://t.me/toron2c">
-          ссылка
-        </a>
-      </div>
+
       {!isAuth && (
         <>
           <p className={style.home__text}>Добро пожаловать!</p>
@@ -31,6 +25,13 @@ export default function Home({ isAuth }) {
           <p className={style.home__text}>Мессенджер в реальном времени </p>
         </>
       )}
+      <div class={style.ad}>
+        В поисках дизайнера
+        <p>telegram: @toron2c</p>
+        <a class={style.link} href="https://t.me/toron2c">
+          ссылка
+        </a>
+      </div>
     </div>
   );
 }
