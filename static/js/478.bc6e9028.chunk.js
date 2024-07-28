@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmessenger2000=self.webpackChunkmessenger2000||[]).push([[478],{4478:function(e,r,n){n.r(r),n.d(r,{default:function(){return t}});var s={errorPage:"ErrorPage_errorPage__9ml92"},a=n(184);function t(){return(0,a.jsx)("div",{className:s.errorPage,children:(0,a.jsx)("p",{className:s.text,children:"Page not found :("})})}}}]);
+//# sourceMappingURL=478.bc6e9028.chunk.js.map
